@@ -1,0 +1,5 @@
+#!/bin/bash
+# My first script
+
+with open ./squab 
+echo "Tiling 4 5 3" 

@@ -1,0 +1,1328 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,amsmath,amssymb,amsfonts,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.8}
+\title{Performance Report}
+
+\begin{document}
+
+\maketitle
+
+\begin{figure}[h!]
+\begin{tikzpicture}[scale=0.80, every node/.style={scale=0.32}]
+
+%vertex labels
+\draw
+	(0.000000,0.000000) node (v0) {}
+	(1.000000,0.000000) node (v1) {}
+	(0.000000,1.000000) node (v2) {}
+	(1.000000,1.000000) node (v3) {}
+	(2.000000,0.000000) node (v4) {}
+	(2.000000,1.000000) node (v5) {}
+	(3.000000,0.000000) node (v6) {}
+	(3.000000,1.000000) node (v7) {}
+	(4.000000,0.000000) node (v8) {}
+	(4.000000,1.000000) node (v9) {}
+	(5.000000,0.000000) node (v10) {}
+	(5.000000,1.000000) node (v11) {}
+	(6.000000,0.000000) node (v12) {}
+	(6.000000,1.000000) node (v13) {}
+	(7.000000,0.000000) node (v14) {}
+	(7.000000,1.000000) node (v15) {}
+	(8.000000,0.000000) node (v16) {}
+	(8.000000,1.000000) node (v17) {}
+	(9.000000,0.000000) node (v18) {}
+	(9.000000,1.000000) node (v19) {}
+	(10.000000,0.000000) node (v20) {}
+	(10.000000,1.000000) node (v21) {}
+	(0.000000,2.000000) node (v22) {}
+	(1.000000,2.000000) node (v23) {}
+	(2.000000,2.000000) node (v24) {}
+	(3.000000,2.000000) node (v25) {}
+	(4.000000,2.000000) node (v26) {}
+	(5.000000,2.000000) node (v27) {}
+	(6.000000,2.000000) node (v28) {}
+	(7.000000,2.000000) node (v29) {}
+	(8.000000,2.000000) node (v30) {}
+	(9.000000,2.000000) node (v31) {}
+	(10.000000,2.000000) node (v32) {}
+	(0.000000,3.000000) node (v33) {}
+	(1.000000,3.000000) node (v34) {}
+	(2.000000,3.000000) node (v35) {}
+	(3.000000,3.000000) node (v36) {}
+	(4.000000,3.000000) node (v37) {}
+	(5.000000,3.000000) node (v38) {}
+	(6.000000,3.000000) node (v39) {}
+	(7.000000,3.000000) node (v40) {}
+	(8.000000,3.000000) node (v41) {}
+	(9.000000,3.000000) node (v42) {}
+	(10.000000,3.000000) node (v43) {}
+	(0.000000,4.000000) node (v44) {}
+	(1.000000,4.000000) node (v45) {}
+	(2.000000,4.000000) node (v46) {}
+	(3.000000,4.000000) node (v47) {}
+	(4.000000,4.000000) node (v48) {}
+	(5.000000,4.000000) node (v49) {}
+	(6.000000,4.000000) node (v50) {}
+	(7.000000,4.000000) node (v51) {}
+	(8.000000,4.000000) node (v52) {}
+	(9.000000,4.000000) node (v53) {}
+	(10.000000,4.000000) node (v54) {}
+	(0.000000,5.000000) node (v55) {}
+	(1.000000,5.000000) node (v56) {}
+	(2.000000,5.000000) node (v57) {}
+	(3.000000,5.000000) node (v58) {}
+	(4.000000,5.000000) node (v59) {}
+	(5.000000,5.000000) node (v60) {}
+	(6.000000,5.000000) node (v61) {}
+	(7.000000,5.000000) node (v62) {}
+	(8.000000,5.000000) node (v63) {}
+	(9.000000,5.000000) node (v64) {}
+	(10.000000,5.000000) node (v65) {}
+	(0.000000,6.000000) node (v66) {}
+	(1.000000,6.000000) node (v67) {}
+	(2.000000,6.000000) node (v68) {}
+	(3.000000,6.000000) node (v69) {}
+	(4.000000,6.000000) node (v70) {}
+	(5.000000,6.000000) node (v71) {}
+	(6.000000,6.000000) node (v72) {}
+	(7.000000,6.000000) node (v73) {}
+	(8.000000,6.000000) node (v74) {}
+	(9.000000,6.000000) node (v75) {}
+	(10.000000,6.000000) node (v76) {}
+	(0.000000,7.000000) node (v77) {}
+	(1.000000,7.000000) node (v78) {}
+	(2.000000,7.000000) node (v79) {}
+	(3.000000,7.000000) node (v80) {}
+	(4.000000,7.000000) node (v81) {}
+	(5.000000,7.000000) node (v82) {}
+	(6.000000,7.000000) node (v83) {}
+	(7.000000,7.000000) node (v84) {}
+	(8.000000,7.000000) node (v85) {}
+	(9.000000,7.000000) node (v86) {}
+	(10.000000,7.000000) node (v87) {}
+	(0.000000,8.000000) node (v88) {}
+	(1.000000,8.000000) node (v89) {}
+	(2.000000,8.000000) node (v90) {}
+	(3.000000,8.000000) node (v91) {}
+	(4.000000,8.000000) node (v92) {}
+	(5.000000,8.000000) node (v93) {}
+	(6.000000,8.000000) node (v94) {}
+	(7.000000,8.000000) node (v95) {}
+	(8.000000,8.000000) node (v96) {}
+	(9.000000,8.000000) node (v97) {}
+	(10.000000,8.000000) node (v98) {}
+	(0.000000,9.000000) node (v99) {}
+	(1.000000,9.000000) node (v100) {}
+	(2.000000,9.000000) node (v101) {}
+	(3.000000,9.000000) node (v102) {}
+	(4.000000,9.000000) node (v103) {}
+	(5.000000,9.000000) node (v104) {}
+	(6.000000,9.000000) node (v105) {}
+	(7.000000,9.000000) node (v106) {}
+	(8.000000,9.000000) node (v107) {}
+	(9.000000,9.000000) node (v108) {}
+	(10.000000,9.000000) node (v109) {}
+	(0.000000,10.000000) node (v110) {}
+	(1.000000,10.000000) node (v111) {}
+	(2.000000,10.000000) node (v112) {}
+	(3.000000,10.000000) node (v113) {}
+	(4.000000,10.000000) node (v114) {}
+	(5.000000,10.000000) node (v115) {}
+	(6.000000,10.000000) node (v116) {}
+	(7.000000,10.000000) node (v117) {}
+	(8.000000,10.000000) node (v118) {}
+	(9.000000,10.000000) node (v119) {}
+	(10.000000,10.000000) node (v120) {};
+
+%plot non-open edges
+\draw
+	(v0)--(v1)
+	(v1)--(v3)
+	(v3)--(v2)
+	(v2)--(v0)
+	(v1)--(v4)
+	(v4)--(v5)
+	(v5)--(v3)
+	(v4)--(v6)
+	(v6)--(v7)
+	(v7)--(v5)
+	(v6)--(v8)
+	(v8)--(v9)
+	(v9)--(v7)
+	(v8)--(v10)
+	(v10)--(v11)
+	(v11)--(v9)
+	(v10)--(v12)
+	(v12)--(v13)
+	(v13)--(v11)
+	(v12)--(v14)
+	(v14)--(v15)
+	(v15)--(v13)
+	(v14)--(v16)
+	(v16)--(v17)
+	(v17)--(v15)
+	(v16)--(v18)
+	(v18)--(v19)
+	(v19)--(v17)
+	(v18)--(v20)
+	(v20)--(v21)
+	(v21)--(v19)
+	(v3)--(v23)
+	(v23)--(v22)
+	(v22)--(v2)
+	(v5)--(v24)
+	(v24)--(v23)
+	(v7)--(v25)
+	(v25)--(v24)
+	(v9)--(v26)
+	(v26)--(v25)
+	(v11)--(v27)
+	(v27)--(v26)
+	(v13)--(v28)
+	(v28)--(v27)
+	(v15)--(v29)
+	(v29)--(v28)
+	(v17)--(v30)
+	(v30)--(v29)
+	(v19)--(v31)
+	(v31)--(v30)
+	(v21)--(v32)
+	(v32)--(v31)
+	(v23)--(v34)
+	(v34)--(v33)
+	(v33)--(v22)
+	(v24)--(v35)
+	(v35)--(v34)
+	(v25)--(v36)
+	(v36)--(v35)
+	(v26)--(v37)
+	(v37)--(v36)
+	(v27)--(v38)
+	(v38)--(v37)
+	(v28)--(v39)
+	(v39)--(v38)
+	(v29)--(v40)
+	(v40)--(v39)
+	(v30)--(v41)
+	(v41)--(v40)
+	(v31)--(v42)
+	(v42)--(v41)
+	(v32)--(v43)
+	(v43)--(v42)
+	(v34)--(v45)
+	(v45)--(v44)
+	(v44)--(v33)
+	(v35)--(v46)
+	(v46)--(v45)
+	(v36)--(v47)
+	(v47)--(v46)
+	(v37)--(v48)
+	(v48)--(v47)
+	(v38)--(v49)
+	(v49)--(v48)
+	(v39)--(v50)
+	(v50)--(v49)
+	(v40)--(v51)
+	(v51)--(v50)
+	(v41)--(v52)
+	(v52)--(v51)
+	(v42)--(v53)
+	(v53)--(v52)
+	(v43)--(v54)
+	(v54)--(v53)
+	(v45)--(v56)
+	(v56)--(v55)
+	(v55)--(v44)
+	(v46)--(v57)
+	(v57)--(v56)
+	(v47)--(v58)
+	(v58)--(v57)
+	(v48)--(v59)
+	(v59)--(v58)
+	(v49)--(v60)
+	(v60)--(v59)
+	(v50)--(v61)
+	(v61)--(v60)
+	(v51)--(v62)
+	(v62)--(v61)
+	(v52)--(v63)
+	(v63)--(v62)
+	(v53)--(v64)
+	(v64)--(v63)
+	(v54)--(v65)
+	(v65)--(v64)
+	(v56)--(v67)
+	(v67)--(v66)
+	(v66)--(v55)
+	(v57)--(v68)
+	(v68)--(v67)
+	(v58)--(v69)
+	(v69)--(v68)
+	(v59)--(v70)
+	(v70)--(v69)
+	(v60)--(v71)
+	(v71)--(v70)
+	(v61)--(v72)
+	(v72)--(v71)
+	(v62)--(v73)
+	(v73)--(v72)
+	(v63)--(v74)
+	(v74)--(v73)
+	(v64)--(v75)
+	(v75)--(v74)
+	(v65)--(v76)
+	(v76)--(v75)
+	(v67)--(v78)
+	(v78)--(v77)
+	(v77)--(v66)
+	(v68)--(v79)
+	(v79)--(v78)
+	(v69)--(v80)
+	(v80)--(v79)
+	(v70)--(v81)
+	(v81)--(v80)
+	(v71)--(v82)
+	(v82)--(v81)
+	(v72)--(v83)
+	(v83)--(v82)
+	(v73)--(v84)
+	(v84)--(v83)
+	(v74)--(v85)
+	(v85)--(v84)
+	(v75)--(v86)
+	(v86)--(v85)
+	(v76)--(v87)
+	(v87)--(v86)
+	(v78)--(v89)
+	(v89)--(v88)
+	(v88)--(v77)
+	(v79)--(v90)
+	(v90)--(v89)
+	(v80)--(v91)
+	(v91)--(v90)
+	(v81)--(v92)
+	(v92)--(v91)
+	(v82)--(v93)
+	(v93)--(v92)
+	(v83)--(v94)
+	(v94)--(v93)
+	(v84)--(v95)
+	(v95)--(v94)
+	(v85)--(v96)
+	(v96)--(v95)
+	(v86)--(v97)
+	(v97)--(v96)
+	(v87)--(v98)
+	(v98)--(v97)
+	(v89)--(v100)
+	(v100)--(v99)
+	(v99)--(v88)
+	(v90)--(v101)
+	(v101)--(v100)
+	(v91)--(v102)
+	(v102)--(v101)
+	(v92)--(v103)
+	(v103)--(v102)
+	(v93)--(v104)
+	(v104)--(v103)
+	(v94)--(v105)
+	(v105)--(v104)
+	(v95)--(v106)
+	(v106)--(v105)
+	(v96)--(v107)
+	(v107)--(v106)
+	(v97)--(v108)
+	(v108)--(v107)
+	(v98)--(v109)
+	(v109)--(v108)
+	(v100)--(v111)
+	(v111)--(v110)
+	(v110)--(v99)
+	(v101)--(v112)
+	(v112)--(v111)
+	(v102)--(v113)
+	(v113)--(v112)
+	(v103)--(v114)
+	(v114)--(v113)
+	(v104)--(v115)
+	(v115)--(v114)
+	(v105)--(v116)
+	(v116)--(v115)
+	(v106)--(v117)
+	(v117)--(v116)
+	(v107)--(v118)
+	(v118)--(v117)
+	(v108)--(v119)
+	(v119)--(v118)
+	(v109)--(v120)
+	(v120)--(v119);
+
+%plot open edges
+\draw[very thick, dashed];
+
+%fill faces
+\fill[color=blue!20, opacity=.5] 
+	(v0.center)--(v1.center)--(v3.center)--(v2.center)--cycle
+	(v1.center)--(v4.center)--(v5.center)--(v3.center)--cycle
+	(v4.center)--(v6.center)--(v7.center)--(v5.center)--cycle
+	(v6.center)--(v8.center)--(v9.center)--(v7.center)--cycle
+	(v8.center)--(v10.center)--(v11.center)--(v9.center)--cycle
+	(v10.center)--(v12.center)--(v13.center)--(v11.center)--cycle
+	(v12.center)--(v14.center)--(v15.center)--(v13.center)--cycle
+	(v14.center)--(v16.center)--(v17.center)--(v15.center)--cycle
+	(v16.center)--(v18.center)--(v19.center)--(v17.center)--cycle
+	(v18.center)--(v20.center)--(v21.center)--(v19.center)--cycle
+	(v3.center)--(v2.center)--(v22.center)--(v23.center)--cycle
+	(v5.center)--(v3.center)--(v23.center)--(v24.center)--cycle
+	(v7.center)--(v5.center)--(v24.center)--(v25.center)--cycle
+	(v9.center)--(v7.center)--(v25.center)--(v26.center)--cycle
+	(v11.center)--(v9.center)--(v26.center)--(v27.center)--cycle
+	(v13.center)--(v11.center)--(v27.center)--(v28.center)--cycle
+	(v15.center)--(v13.center)--(v28.center)--(v29.center)--cycle
+	(v17.center)--(v15.center)--(v29.center)--(v30.center)--cycle
+	(v19.center)--(v17.center)--(v30.center)--(v31.center)--cycle
+	(v21.center)--(v19.center)--(v31.center)--(v32.center)--cycle
+	(v23.center)--(v22.center)--(v33.center)--(v34.center)--cycle
+	(v24.center)--(v23.center)--(v34.center)--(v35.center)--cycle
+	(v25.center)--(v24.center)--(v35.center)--(v36.center)--cycle
+	(v26.center)--(v25.center)--(v36.center)--(v37.center)--cycle
+	(v27.center)--(v26.center)--(v37.center)--(v38.center)--cycle
+	(v28.center)--(v27.center)--(v38.center)--(v39.center)--cycle
+	(v29.center)--(v28.center)--(v39.center)--(v40.center)--cycle
+	(v30.center)--(v29.center)--(v40.center)--(v41.center)--cycle
+	(v31.center)--(v30.center)--(v41.center)--(v42.center)--cycle
+	(v32.center)--(v31.center)--(v42.center)--(v43.center)--cycle
+	(v34.center)--(v33.center)--(v44.center)--(v45.center)--cycle
+	(v35.center)--(v34.center)--(v45.center)--(v46.center)--cycle
+	(v36.center)--(v35.center)--(v46.center)--(v47.center)--cycle
+	(v37.center)--(v36.center)--(v47.center)--(v48.center)--cycle
+	(v38.center)--(v37.center)--(v48.center)--(v49.center)--cycle
+	(v39.center)--(v38.center)--(v49.center)--(v50.center)--cycle
+	(v40.center)--(v39.center)--(v50.center)--(v51.center)--cycle
+	(v41.center)--(v40.center)--(v51.center)--(v52.center)--cycle
+	(v42.center)--(v41.center)--(v52.center)--(v53.center)--cycle
+	(v43.center)--(v42.center)--(v53.center)--(v54.center)--cycle
+	(v45.center)--(v44.center)--(v55.center)--(v56.center)--cycle
+	(v46.center)--(v45.center)--(v56.center)--(v57.center)--cycle
+	(v47.center)--(v46.center)--(v57.center)--(v58.center)--cycle
+	(v48.center)--(v47.center)--(v58.center)--(v59.center)--cycle
+	(v49.center)--(v48.center)--(v59.center)--(v60.center)--cycle
+	(v50.center)--(v49.center)--(v60.center)--(v61.center)--cycle
+	(v51.center)--(v50.center)--(v61.center)--(v62.center)--cycle
+	(v52.center)--(v51.center)--(v62.center)--(v63.center)--cycle
+	(v53.center)--(v52.center)--(v63.center)--(v64.center)--cycle
+	(v54.center)--(v53.center)--(v64.center)--(v65.center)--cycle
+	(v56.center)--(v55.center)--(v66.center)--(v67.center)--cycle
+	(v57.center)--(v56.center)--(v67.center)--(v68.center)--cycle
+	(v58.center)--(v57.center)--(v68.center)--(v69.center)--cycle
+	(v59.center)--(v58.center)--(v69.center)--(v70.center)--cycle
+	(v60.center)--(v59.center)--(v70.center)--(v71.center)--cycle
+	(v61.center)--(v60.center)--(v71.center)--(v72.center)--cycle
+	(v62.center)--(v61.center)--(v72.center)--(v73.center)--cycle
+	(v63.center)--(v62.center)--(v73.center)--(v74.center)--cycle
+	(v64.center)--(v63.center)--(v74.center)--(v75.center)--cycle
+	(v65.center)--(v64.center)--(v75.center)--(v76.center)--cycle
+	(v67.center)--(v66.center)--(v77.center)--(v78.center)--cycle
+	(v68.center)--(v67.center)--(v78.center)--(v79.center)--cycle
+	(v69.center)--(v68.center)--(v79.center)--(v80.center)--cycle
+	(v70.center)--(v69.center)--(v80.center)--(v81.center)--cycle
+	(v71.center)--(v70.center)--(v81.center)--(v82.center)--cycle
+	(v72.center)--(v71.center)--(v82.center)--(v83.center)--cycle
+	(v73.center)--(v72.center)--(v83.center)--(v84.center)--cycle
+	(v74.center)--(v73.center)--(v84.center)--(v85.center)--cycle
+	(v75.center)--(v74.center)--(v85.center)--(v86.center)--cycle
+	(v76.center)--(v75.center)--(v86.center)--(v87.center)--cycle
+	(v78.center)--(v77.center)--(v88.center)--(v89.center)--cycle
+	(v79.center)--(v78.center)--(v89.center)--(v90.center)--cycle
+	(v80.center)--(v79.center)--(v90.center)--(v91.center)--cycle
+	(v81.center)--(v80.center)--(v91.center)--(v92.center)--cycle
+	(v82.center)--(v81.center)--(v92.center)--(v93.center)--cycle
+	(v83.center)--(v82.center)--(v93.center)--(v94.center)--cycle
+	(v84.center)--(v83.center)--(v94.center)--(v95.center)--cycle
+	(v85.center)--(v84.center)--(v95.center)--(v96.center)--cycle
+	(v86.center)--(v85.center)--(v96.center)--(v97.center)--cycle
+	(v87.center)--(v86.center)--(v97.center)--(v98.center)--cycle
+	(v89.center)--(v88.center)--(v99.center)--(v100.center)--cycle
+	(v90.center)--(v89.center)--(v100.center)--(v101.center)--cycle
+	(v91.center)--(v90.center)--(v101.center)--(v102.center)--cycle
+	(v92.center)--(v91.center)--(v102.center)--(v103.center)--cycle
+	(v93.center)--(v92.center)--(v103.center)--(v104.center)--cycle
+	(v94.center)--(v93.center)--(v104.center)--(v105.center)--cycle
+	(v95.center)--(v94.center)--(v105.center)--(v106.center)--cycle
+	(v96.center)--(v95.center)--(v106.center)--(v107.center)--cycle
+	(v97.center)--(v96.center)--(v107.center)--(v108.center)--cycle
+	(v98.center)--(v97.center)--(v108.center)--(v109.center)--cycle
+	(v100.center)--(v99.center)--(v110.center)--(v111.center)--cycle
+	(v101.center)--(v100.center)--(v111.center)--(v112.center)--cycle
+	(v102.center)--(v101.center)--(v112.center)--(v113.center)--cycle
+	(v103.center)--(v102.center)--(v113.center)--(v114.center)--cycle
+	(v104.center)--(v103.center)--(v114.center)--(v115.center)--cycle
+	(v105.center)--(v104.center)--(v115.center)--(v116.center)--cycle
+	(v106.center)--(v105.center)--(v116.center)--(v117.center)--cycle
+	(v107.center)--(v106.center)--(v117.center)--(v118.center)--cycle
+	(v108.center)--(v107.center)--(v118.center)--(v119.center)--cycle
+	(v109.center)--(v108.center)--(v119.center)--(v120.center)--cycle;
+
+%plot non-open vertices
+\draw
+	(v0) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v1) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v2) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v3) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v4) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v5) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v6) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v7) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v8) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v9) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v10) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v11) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v12) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v13) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v14) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v15) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v16) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v17) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v18) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v19) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v20) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v21) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v22) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v23) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v24) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v25) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v26) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v27) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v28) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v29) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v30) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v31) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v32) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v33) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v34) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v35) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v36) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v37) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v38) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v39) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v40) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v41) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v42) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v43) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v44) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v45) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v46) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v47) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v48) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v49) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v50) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v51) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v52) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v53) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v54) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v55) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v56) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v57) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v58) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v59) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v60) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v61) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v62) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v63) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v64) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v65) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v66) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v67) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v68) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v69) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v70) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v71) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v72) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v73) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v74) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v75) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v76) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v77) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v78) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v79) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v80) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v81) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v82) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v83) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v84) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v85) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v86) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v87) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v88) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v89) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v90) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v91) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v92) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v93) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v94) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v95) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v96) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v97) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v98) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v99) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v100) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v101) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v102) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v103) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v104) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v105) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v106) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v107) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v108) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v109) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v110) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v111) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v112) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v113) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v114) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v115) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v116) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v117) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v118) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v119) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v120) node[draw, circle, inner sep=2pt, fill=black] {};
+
+%plot open vertices
+\draw;
+
+\end{tikzpicture}
+\hspace{.2cm}
+\begin{tikzpicture}[scale=0.80, every node/.style={scale=0.32}]
+
+%vertex labels
+\draw
+	(0.500000,0.500000) node (v0) {}
+	(1.500000,0.500000) node (v1) {}
+	(2.500000,0.500000) node (v2) {}
+	(3.500000,0.500000) node (v3) {}
+	(4.500000,0.500000) node (v4) {}
+	(5.500000,0.500000) node (v5) {}
+	(6.500000,0.500000) node (v6) {}
+	(7.500000,0.500000) node (v7) {}
+	(8.500000,0.500000) node (v8) {}
+	(9.500000,0.500000) node (v9) {}
+	(0.500000,1.500000) node (v10) {}
+	(1.500000,1.500000) node (v11) {}
+	(2.500000,1.500000) node (v12) {}
+	(3.500000,1.500000) node (v13) {}
+	(4.500000,1.500000) node (v14) {}
+	(5.500000,1.500000) node (v15) {}
+	(6.500000,1.500000) node (v16) {}
+	(7.500000,1.500000) node (v17) {}
+	(8.500000,1.500000) node (v18) {}
+	(9.500000,1.500000) node (v19) {}
+	(0.500000,2.500000) node (v20) {}
+	(1.500000,2.500000) node (v21) {}
+	(2.500000,2.500000) node (v22) {}
+	(3.500000,2.500000) node (v23) {}
+	(4.500000,2.500000) node (v24) {}
+	(5.500000,2.500000) node (v25) {}
+	(6.500000,2.500000) node (v26) {}
+	(7.500000,2.500000) node (v27) {}
+	(8.500000,2.500000) node (v28) {}
+	(9.500000,2.500000) node (v29) {}
+	(0.500000,3.500000) node (v30) {}
+	(1.500000,3.500000) node (v31) {}
+	(2.500000,3.500000) node (v32) {}
+	(3.500000,3.500000) node (v33) {}
+	(4.500000,3.500000) node (v34) {}
+	(5.500000,3.500000) node (v35) {}
+	(6.500000,3.500000) node (v36) {}
+	(7.500000,3.500000) node (v37) {}
+	(8.500000,3.500000) node (v38) {}
+	(9.500000,3.500000) node (v39) {}
+	(0.500000,4.500000) node (v40) {}
+	(1.500000,4.500000) node (v41) {}
+	(2.500000,4.500000) node (v42) {}
+	(3.500000,4.500000) node (v43) {}
+	(4.500000,4.500000) node (v44) {}
+	(5.500000,4.500000) node (v45) {}
+	(6.500000,4.500000) node (v46) {}
+	(7.500000,4.500000) node (v47) {}
+	(8.500000,4.500000) node (v48) {}
+	(9.500000,4.500000) node (v49) {}
+	(0.500000,5.500000) node (v50) {}
+	(1.500000,5.500000) node (v51) {}
+	(2.500000,5.500000) node (v52) {}
+	(3.500000,5.500000) node (v53) {}
+	(4.500000,5.500000) node (v54) {}
+	(5.500000,5.500000) node (v55) {}
+	(6.500000,5.500000) node (v56) {}
+	(7.500000,5.500000) node (v57) {}
+	(8.500000,5.500000) node (v58) {}
+	(9.500000,5.500000) node (v59) {}
+	(0.500000,6.500000) node (v60) {}
+	(1.500000,6.500000) node (v61) {}
+	(2.500000,6.500000) node (v62) {}
+	(3.500000,6.500000) node (v63) {}
+	(4.500000,6.500000) node (v64) {}
+	(5.500000,6.500000) node (v65) {}
+	(6.500000,6.500000) node (v66) {}
+	(7.500000,6.500000) node (v67) {}
+	(8.500000,6.500000) node (v68) {}
+	(9.500000,6.500000) node (v69) {}
+	(0.500000,7.500000) node (v70) {}
+	(1.500000,7.500000) node (v71) {}
+	(2.500000,7.500000) node (v72) {}
+	(3.500000,7.500000) node (v73) {}
+	(4.500000,7.500000) node (v74) {}
+	(5.500000,7.500000) node (v75) {}
+	(6.500000,7.500000) node (v76) {}
+	(7.500000,7.500000) node (v77) {}
+	(8.500000,7.500000) node (v78) {}
+	(9.500000,7.500000) node (v79) {}
+	(0.500000,8.500000) node (v80) {}
+	(1.500000,8.500000) node (v81) {}
+	(2.500000,8.500000) node (v82) {}
+	(3.500000,8.500000) node (v83) {}
+	(4.500000,8.500000) node (v84) {}
+	(5.500000,8.500000) node (v85) {}
+	(6.500000,8.500000) node (v86) {}
+	(7.500000,8.500000) node (v87) {}
+	(8.500000,8.500000) node (v88) {}
+	(9.500000,8.500000) node (v89) {}
+	(0.500000,9.500000) node (v90) {}
+	(1.500000,9.500000) node (v91) {}
+	(2.500000,9.500000) node (v92) {}
+	(3.500000,9.500000) node (v93) {}
+	(4.500000,9.500000) node (v94) {}
+	(5.500000,9.500000) node (v95) {}
+	(6.500000,9.500000) node (v96) {}
+	(7.500000,9.500000) node (v97) {}
+	(8.500000,9.500000) node (v98) {}
+	(9.500000,9.500000) node (v99) {}
+	(0.500000,0.000000) node (v100) {}
+	(0.000000,0.500000) node (v101) {}
+	(1.500000,0.000000) node (v102) {}
+	(2.500000,0.000000) node (v103) {}
+	(3.500000,0.000000) node (v104) {}
+	(4.500000,0.000000) node (v105) {}
+	(5.500000,0.000000) node (v106) {}
+	(6.500000,0.000000) node (v107) {}
+	(7.500000,0.000000) node (v108) {}
+	(8.500000,0.000000) node (v109) {}
+	(9.500000,0.000000) node (v110) {}
+	(10.000000,0.500000) node (v111) {}
+	(0.000000,1.500000) node (v112) {}
+	(10.000000,1.500000) node (v113) {}
+	(0.000000,2.500000) node (v114) {}
+	(10.000000,2.500000) node (v115) {}
+	(0.000000,3.500000) node (v116) {}
+	(10.000000,3.500000) node (v117) {}
+	(0.000000,4.500000) node (v118) {}
+	(10.000000,4.500000) node (v119) {}
+	(0.000000,5.500000) node (v120) {}
+	(10.000000,5.500000) node (v121) {}
+	(0.000000,6.500000) node (v122) {}
+	(10.000000,6.500000) node (v123) {}
+	(0.000000,7.500000) node (v124) {}
+	(10.000000,7.500000) node (v125) {}
+	(0.000000,8.500000) node (v126) {}
+	(10.000000,8.500000) node (v127) {}
+	(0.500000,10.000000) node (v128) {}
+	(0.000000,9.500000) node (v129) {}
+	(1.500000,10.000000) node (v130) {}
+	(2.500000,10.000000) node (v131) {}
+	(3.500000,10.000000) node (v132) {}
+	(4.500000,10.000000) node (v133) {}
+	(5.500000,10.000000) node (v134) {}
+	(6.500000,10.000000) node (v135) {}
+	(7.500000,10.000000) node (v136) {}
+	(8.500000,10.000000) node (v137) {}
+	(10.000000,9.500000) node (v138) {}
+	(9.500000,10.000000) node (v139) {};
+
+%plot non-open edges
+\draw
+	(v0)--(v100)
+	(v0)--(v1)
+	(v0)--(v10)
+	(v0)--(v101)
+	(v1)--(v102)
+	(v1)--(v2)
+	(v1)--(v11)
+	(v2)--(v103)
+	(v2)--(v3)
+	(v2)--(v12)
+	(v3)--(v104)
+	(v3)--(v4)
+	(v3)--(v13)
+	(v4)--(v105)
+	(v4)--(v5)
+	(v4)--(v14)
+	(v5)--(v106)
+	(v5)--(v6)
+	(v5)--(v15)
+	(v6)--(v107)
+	(v6)--(v7)
+	(v6)--(v16)
+	(v7)--(v108)
+	(v7)--(v8)
+	(v7)--(v17)
+	(v8)--(v109)
+	(v8)--(v9)
+	(v8)--(v18)
+	(v9)--(v110)
+	(v9)--(v111)
+	(v9)--(v19)
+	(v10)--(v11)
+	(v10)--(v20)
+	(v10)--(v112)
+	(v11)--(v12)
+	(v11)--(v21)
+	(v12)--(v13)
+	(v12)--(v22)
+	(v13)--(v14)
+	(v13)--(v23)
+	(v14)--(v15)
+	(v14)--(v24)
+	(v15)--(v16)
+	(v15)--(v25)
+	(v16)--(v17)
+	(v16)--(v26)
+	(v17)--(v18)
+	(v17)--(v27)
+	(v18)--(v19)
+	(v18)--(v28)
+	(v19)--(v113)
+	(v19)--(v29)
+	(v20)--(v21)
+	(v20)--(v30)
+	(v20)--(v114)
+	(v21)--(v22)
+	(v21)--(v31)
+	(v22)--(v23)
+	(v22)--(v32)
+	(v23)--(v24)
+	(v23)--(v33)
+	(v24)--(v25)
+	(v24)--(v34)
+	(v25)--(v26)
+	(v25)--(v35)
+	(v26)--(v27)
+	(v26)--(v36)
+	(v27)--(v28)
+	(v27)--(v37)
+	(v28)--(v29)
+	(v28)--(v38)
+	(v29)--(v115)
+	(v29)--(v39)
+	(v30)--(v31)
+	(v30)--(v40)
+	(v30)--(v116)
+	(v31)--(v32)
+	(v31)--(v41)
+	(v32)--(v33)
+	(v32)--(v42)
+	(v33)--(v34)
+	(v33)--(v43)
+	(v34)--(v35)
+	(v34)--(v44)
+	(v35)--(v36)
+	(v35)--(v45)
+	(v36)--(v37)
+	(v36)--(v46)
+	(v37)--(v38)
+	(v37)--(v47)
+	(v38)--(v39)
+	(v38)--(v48)
+	(v39)--(v117)
+	(v39)--(v49)
+	(v40)--(v41)
+	(v40)--(v50)
+	(v40)--(v118)
+	(v41)--(v42)
+	(v41)--(v51)
+	(v42)--(v43)
+	(v42)--(v52)
+	(v43)--(v44)
+	(v43)--(v53)
+	(v44)--(v45)
+	(v44)--(v54)
+	(v45)--(v46)
+	(v45)--(v55)
+	(v46)--(v47)
+	(v46)--(v56)
+	(v47)--(v48)
+	(v47)--(v57)
+	(v48)--(v49)
+	(v48)--(v58)
+	(v49)--(v119)
+	(v49)--(v59)
+	(v50)--(v51)
+	(v50)--(v60)
+	(v50)--(v120)
+	(v51)--(v52)
+	(v51)--(v61)
+	(v52)--(v53)
+	(v52)--(v62)
+	(v53)--(v54)
+	(v53)--(v63)
+	(v54)--(v55)
+	(v54)--(v64)
+	(v55)--(v56)
+	(v55)--(v65)
+	(v56)--(v57)
+	(v56)--(v66)
+	(v57)--(v58)
+	(v57)--(v67)
+	(v58)--(v59)
+	(v58)--(v68)
+	(v59)--(v121)
+	(v59)--(v69)
+	(v60)--(v61)
+	(v60)--(v70)
+	(v60)--(v122)
+	(v61)--(v62)
+	(v61)--(v71)
+	(v62)--(v63)
+	(v62)--(v72)
+	(v63)--(v64)
+	(v63)--(v73)
+	(v64)--(v65)
+	(v64)--(v74)
+	(v65)--(v66)
+	(v65)--(v75)
+	(v66)--(v67)
+	(v66)--(v76)
+	(v67)--(v68)
+	(v67)--(v77)
+	(v68)--(v69)
+	(v68)--(v78)
+	(v69)--(v123)
+	(v69)--(v79)
+	(v70)--(v71)
+	(v70)--(v80)
+	(v70)--(v124)
+	(v71)--(v72)
+	(v71)--(v81)
+	(v72)--(v73)
+	(v72)--(v82)
+	(v73)--(v74)
+	(v73)--(v83)
+	(v74)--(v75)
+	(v74)--(v84)
+	(v75)--(v76)
+	(v75)--(v85)
+	(v76)--(v77)
+	(v76)--(v86)
+	(v77)--(v78)
+	(v77)--(v87)
+	(v78)--(v79)
+	(v78)--(v88)
+	(v79)--(v125)
+	(v79)--(v89)
+	(v80)--(v81)
+	(v80)--(v90)
+	(v80)--(v126)
+	(v81)--(v82)
+	(v81)--(v91)
+	(v82)--(v83)
+	(v82)--(v92)
+	(v83)--(v84)
+	(v83)--(v93)
+	(v84)--(v85)
+	(v84)--(v94)
+	(v85)--(v86)
+	(v85)--(v95)
+	(v86)--(v87)
+	(v86)--(v96)
+	(v87)--(v88)
+	(v87)--(v97)
+	(v88)--(v89)
+	(v88)--(v98)
+	(v89)--(v127)
+	(v89)--(v99)
+	(v90)--(v91)
+	(v90)--(v128)
+	(v90)--(v129)
+	(v91)--(v92)
+	(v91)--(v130)
+	(v92)--(v93)
+	(v92)--(v131)
+	(v93)--(v94)
+	(v93)--(v132)
+	(v94)--(v95)
+	(v94)--(v133)
+	(v95)--(v96)
+	(v95)--(v134)
+	(v96)--(v97)
+	(v96)--(v135)
+	(v97)--(v98)
+	(v97)--(v136)
+	(v98)--(v99)
+	(v98)--(v137)
+	(v99)--(v138)
+	(v99)--(v139);
+
+%plot open edges
+\draw[very thick, dashed]
+	(v100)--(v101)
+	(v100)--(v102)
+	(v101)--(v112)
+	(v102)--(v103)
+	(v103)--(v104)
+	(v104)--(v105)
+	(v105)--(v106)
+	(v106)--(v107)
+	(v107)--(v108)
+	(v108)--(v109)
+	(v109)--(v110)
+	(v110)--(v111)
+	(v111)--(v113)
+	(v112)--(v114)
+	(v113)--(v115)
+	(v114)--(v116)
+	(v115)--(v117)
+	(v116)--(v118)
+	(v117)--(v119)
+	(v118)--(v120)
+	(v119)--(v121)
+	(v120)--(v122)
+	(v121)--(v123)
+	(v122)--(v124)
+	(v123)--(v125)
+	(v124)--(v126)
+	(v125)--(v127)
+	(v126)--(v129)
+	(v127)--(v138)
+	(v128)--(v129)
+	(v128)--(v130)
+	(v130)--(v131)
+	(v131)--(v132)
+	(v132)--(v133)
+	(v133)--(v134)
+	(v134)--(v135)
+	(v135)--(v136)
+	(v136)--(v137)
+	(v137)--(v139)
+	(v138)--(v139);
+
+%fill faces
+\fill[color=red!20, opacity=.5] 
+	(v0.center)--(v100.center)--(v101.center)--cycle
+	(v0.center)--(v100.center)--(v102.center)--(v1.center)--cycle
+	(v0.center)--(v10.center)--(v112.center)--(v101.center)--cycle
+	(v0.center)--(v1.center)--(v11.center)--(v10.center)--cycle
+	(v1.center)--(v102.center)--(v103.center)--(v2.center)--cycle
+	(v1.center)--(v2.center)--(v12.center)--(v11.center)--cycle
+	(v2.center)--(v103.center)--(v104.center)--(v3.center)--cycle
+	(v2.center)--(v3.center)--(v13.center)--(v12.center)--cycle
+	(v3.center)--(v104.center)--(v105.center)--(v4.center)--cycle
+	(v3.center)--(v4.center)--(v14.center)--(v13.center)--cycle
+	(v4.center)--(v105.center)--(v106.center)--(v5.center)--cycle
+	(v4.center)--(v5.center)--(v15.center)--(v14.center)--cycle
+	(v5.center)--(v106.center)--(v107.center)--(v6.center)--cycle
+	(v5.center)--(v6.center)--(v16.center)--(v15.center)--cycle
+	(v6.center)--(v107.center)--(v108.center)--(v7.center)--cycle
+	(v6.center)--(v7.center)--(v17.center)--(v16.center)--cycle
+	(v7.center)--(v108.center)--(v109.center)--(v8.center)--cycle
+	(v7.center)--(v8.center)--(v18.center)--(v17.center)--cycle
+	(v8.center)--(v109.center)--(v110.center)--(v9.center)--cycle
+	(v8.center)--(v9.center)--(v19.center)--(v18.center)--cycle
+	(v9.center)--(v110.center)--(v111.center)--cycle
+	(v9.center)--(v111.center)--(v113.center)--(v19.center)--cycle
+	(v10.center)--(v20.center)--(v114.center)--(v112.center)--cycle
+	(v10.center)--(v11.center)--(v21.center)--(v20.center)--cycle
+	(v11.center)--(v12.center)--(v22.center)--(v21.center)--cycle
+	(v12.center)--(v13.center)--(v23.center)--(v22.center)--cycle
+	(v13.center)--(v14.center)--(v24.center)--(v23.center)--cycle
+	(v14.center)--(v15.center)--(v25.center)--(v24.center)--cycle
+	(v15.center)--(v16.center)--(v26.center)--(v25.center)--cycle
+	(v16.center)--(v17.center)--(v27.center)--(v26.center)--cycle
+	(v17.center)--(v18.center)--(v28.center)--(v27.center)--cycle
+	(v18.center)--(v19.center)--(v29.center)--(v28.center)--cycle
+	(v19.center)--(v113.center)--(v115.center)--(v29.center)--cycle
+	(v20.center)--(v30.center)--(v116.center)--(v114.center)--cycle
+	(v20.center)--(v21.center)--(v31.center)--(v30.center)--cycle
+	(v21.center)--(v22.center)--(v32.center)--(v31.center)--cycle
+	(v22.center)--(v23.center)--(v33.center)--(v32.center)--cycle
+	(v23.center)--(v24.center)--(v34.center)--(v33.center)--cycle
+	(v24.center)--(v25.center)--(v35.center)--(v34.center)--cycle
+	(v25.center)--(v26.center)--(v36.center)--(v35.center)--cycle
+	(v26.center)--(v27.center)--(v37.center)--(v36.center)--cycle
+	(v27.center)--(v28.center)--(v38.center)--(v37.center)--cycle
+	(v28.center)--(v29.center)--(v39.center)--(v38.center)--cycle
+	(v29.center)--(v115.center)--(v117.center)--(v39.center)--cycle
+	(v30.center)--(v40.center)--(v118.center)--(v116.center)--cycle
+	(v30.center)--(v31.center)--(v41.center)--(v40.center)--cycle
+	(v31.center)--(v32.center)--(v42.center)--(v41.center)--cycle
+	(v32.center)--(v33.center)--(v43.center)--(v42.center)--cycle
+	(v33.center)--(v34.center)--(v44.center)--(v43.center)--cycle
+	(v34.center)--(v35.center)--(v45.center)--(v44.center)--cycle
+	(v35.center)--(v36.center)--(v46.center)--(v45.center)--cycle
+	(v36.center)--(v37.center)--(v47.center)--(v46.center)--cycle
+	(v37.center)--(v38.center)--(v48.center)--(v47.center)--cycle
+	(v38.center)--(v39.center)--(v49.center)--(v48.center)--cycle
+	(v39.center)--(v117.center)--(v119.center)--(v49.center)--cycle
+	(v40.center)--(v50.center)--(v120.center)--(v118.center)--cycle
+	(v40.center)--(v41.center)--(v51.center)--(v50.center)--cycle
+	(v41.center)--(v42.center)--(v52.center)--(v51.center)--cycle
+	(v42.center)--(v43.center)--(v53.center)--(v52.center)--cycle
+	(v43.center)--(v44.center)--(v54.center)--(v53.center)--cycle
+	(v44.center)--(v45.center)--(v55.center)--(v54.center)--cycle
+	(v45.center)--(v46.center)--(v56.center)--(v55.center)--cycle
+	(v46.center)--(v47.center)--(v57.center)--(v56.center)--cycle
+	(v47.center)--(v48.center)--(v58.center)--(v57.center)--cycle
+	(v48.center)--(v49.center)--(v59.center)--(v58.center)--cycle
+	(v49.center)--(v119.center)--(v121.center)--(v59.center)--cycle
+	(v50.center)--(v60.center)--(v122.center)--(v120.center)--cycle
+	(v50.center)--(v51.center)--(v61.center)--(v60.center)--cycle
+	(v51.center)--(v52.center)--(v62.center)--(v61.center)--cycle
+	(v52.center)--(v53.center)--(v63.center)--(v62.center)--cycle
+	(v53.center)--(v54.center)--(v64.center)--(v63.center)--cycle
+	(v54.center)--(v55.center)--(v65.center)--(v64.center)--cycle
+	(v55.center)--(v56.center)--(v66.center)--(v65.center)--cycle
+	(v56.center)--(v57.center)--(v67.center)--(v66.center)--cycle
+	(v57.center)--(v58.center)--(v68.center)--(v67.center)--cycle
+	(v58.center)--(v59.center)--(v69.center)--(v68.center)--cycle
+	(v59.center)--(v121.center)--(v123.center)--(v69.center)--cycle
+	(v60.center)--(v70.center)--(v124.center)--(v122.center)--cycle
+	(v60.center)--(v61.center)--(v71.center)--(v70.center)--cycle
+	(v61.center)--(v62.center)--(v72.center)--(v71.center)--cycle
+	(v62.center)--(v63.center)--(v73.center)--(v72.center)--cycle
+	(v63.center)--(v64.center)--(v74.center)--(v73.center)--cycle
+	(v64.center)--(v65.center)--(v75.center)--(v74.center)--cycle
+	(v65.center)--(v66.center)--(v76.center)--(v75.center)--cycle
+	(v66.center)--(v67.center)--(v77.center)--(v76.center)--cycle
+	(v67.center)--(v68.center)--(v78.center)--(v77.center)--cycle
+	(v68.center)--(v69.center)--(v79.center)--(v78.center)--cycle
+	(v69.center)--(v123.center)--(v125.center)--(v79.center)--cycle
+	(v70.center)--(v80.center)--(v126.center)--(v124.center)--cycle
+	(v70.center)--(v71.center)--(v81.center)--(v80.center)--cycle
+	(v71.center)--(v72.center)--(v82.center)--(v81.center)--cycle
+	(v72.center)--(v73.center)--(v83.center)--(v82.center)--cycle
+	(v73.center)--(v74.center)--(v84.center)--(v83.center)--cycle
+	(v74.center)--(v75.center)--(v85.center)--(v84.center)--cycle
+	(v75.center)--(v76.center)--(v86.center)--(v85.center)--cycle
+	(v76.center)--(v77.center)--(v87.center)--(v86.center)--cycle
+	(v77.center)--(v78.center)--(v88.center)--(v87.center)--cycle
+	(v78.center)--(v79.center)--(v89.center)--(v88.center)--cycle
+	(v79.center)--(v125.center)--(v127.center)--(v89.center)--cycle
+	(v80.center)--(v90.center)--(v129.center)--(v126.center)--cycle
+	(v80.center)--(v81.center)--(v91.center)--(v90.center)--cycle
+	(v81.center)--(v82.center)--(v92.center)--(v91.center)--cycle
+	(v82.center)--(v83.center)--(v93.center)--(v92.center)--cycle
+	(v83.center)--(v84.center)--(v94.center)--(v93.center)--cycle
+	(v84.center)--(v85.center)--(v95.center)--(v94.center)--cycle
+	(v85.center)--(v86.center)--(v96.center)--(v95.center)--cycle
+	(v86.center)--(v87.center)--(v97.center)--(v96.center)--cycle
+	(v87.center)--(v88.center)--(v98.center)--(v97.center)--cycle
+	(v88.center)--(v89.center)--(v99.center)--(v98.center)--cycle
+	(v89.center)--(v127.center)--(v138.center)--(v99.center)--cycle
+	(v90.center)--(v128.center)--(v129.center)--cycle
+	(v90.center)--(v91.center)--(v130.center)--(v128.center)--cycle
+	(v91.center)--(v92.center)--(v131.center)--(v130.center)--cycle
+	(v92.center)--(v93.center)--(v132.center)--(v131.center)--cycle
+	(v93.center)--(v94.center)--(v133.center)--(v132.center)--cycle
+	(v94.center)--(v95.center)--(v134.center)--(v133.center)--cycle
+	(v95.center)--(v96.center)--(v135.center)--(v134.center)--cycle
+	(v96.center)--(v97.center)--(v136.center)--(v135.center)--cycle
+	(v97.center)--(v98.center)--(v137.center)--(v136.center)--cycle
+	(v98.center)--(v99.center)--(v139.center)--(v137.center)--cycle
+	(v99.center)--(v138.center)--(v139.center)--cycle;
+
+%plot non-open vertices
+\draw
+	(v0) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v1) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v2) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v3) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v4) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v5) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v6) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v7) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v8) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v9) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v10) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v11) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v12) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v13) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v14) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v15) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v16) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v17) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v18) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v19) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v20) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v21) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v22) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v23) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v24) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v25) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v26) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v27) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v28) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v29) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v30) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v31) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v32) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v33) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v34) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v35) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v36) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v37) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v38) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v39) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v40) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v41) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v42) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v43) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v44) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v45) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v46) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v47) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v48) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v49) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v50) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v51) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v52) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v53) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v54) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v55) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v56) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v57) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v58) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v59) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v60) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v61) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v62) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v63) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v64) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v65) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v66) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v67) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v68) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v69) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v70) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v71) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v72) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v73) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v74) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v75) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v76) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v77) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v78) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v79) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v80) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v81) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v82) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v83) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v84) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v85) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v86) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v87) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v88) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v89) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v90) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v91) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v92) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v93) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v94) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v95) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v96) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v97) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v98) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v99) node[draw, circle, inner sep=2pt, fill=black] {};
+
+%plot open vertices
+\draw
+	(v100) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v101) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v102) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v103) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v104) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v105) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v106) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v107) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v108) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v109) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v110) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v111) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v112) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v113) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v114) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v115) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v116) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v117) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v118) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v119) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v120) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v121) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v122) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v123) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v124) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v125) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v126) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v127) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v128) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v129) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v130) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v131) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v132) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v133) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v134) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v135) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v136) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v137) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v138) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v139) node[draw, circle, inner sep=2pt, fill=white] {};
+
+\end{tikzpicture}
+\caption{The tiling and its dual tiling}
+\end{figure}
+\vspace{.2cm}
+
+\newpage
+\begin{table}[h]
+\centering
+\begin{tabular}{c c}
+\hline
+Number of physical qubits & $n = 220$ \\
+\hline
+Number of logical qubits & $k = 0$\\
+\hline
+Overhead & $n/k = inf$\\
+\hline
+\end{tabular}
+\caption{Error-correction overhead}
+\end{table}
+\vspace{.3cm}
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c c}
+\hline
+weight & number of $Z$-measurements\\
+\hline
+4 & 100\\
+\hline
+\hline
+weight & number of $X$-measurements\\
+\hline
+2 & 4\\
+3 & 36\\
+4 & 81\\
+\hline
+\end{tabular}
+\caption{Measurements weight distribution}
+\end{table}
+\vspace{.3cm}
+
+
+
+\vspace{2cm}
+Total simulation time: $27$ seconds.
+\end{document}

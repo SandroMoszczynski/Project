@@ -1,0 +1,600 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,amsmath,amssymb,amsfonts,amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.8}
+\title{Performance Report}
+
+\begin{document}
+
+\maketitle
+
+\begin{figure}[h!]
+\begin{tikzpicture}[scale=1.33, every node/.style={scale=0.53}]
+
+%vertex labels
+\draw
+	(0.000000,0.000000) node (v0) {}
+	(1.000000,0.000000) node (v1) {}
+	(0.000000,1.000000) node (v2) {}
+	(1.000000,1.000000) node (v3) {}
+	(2.000000,0.000000) node (v4) {}
+	(2.000000,1.000000) node (v5) {}
+	(3.000000,0.000000) node (v6) {}
+	(3.000000,1.000000) node (v7) {}
+	(4.000000,0.000000) node (v8) {}
+	(4.000000,1.000000) node (v9) {}
+	(5.000000,0.000000) node (v10) {}
+	(5.000000,1.000000) node (v11) {}
+	(6.000000,0.000000) node (v12) {}
+	(6.000000,1.000000) node (v13) {}
+	(0.000000,2.000000) node (v14) {}
+	(1.000000,2.000000) node (v15) {}
+	(2.000000,2.000000) node (v16) {}
+	(3.000000,2.000000) node (v17) {}
+	(4.000000,2.000000) node (v18) {}
+	(5.000000,2.000000) node (v19) {}
+	(6.000000,2.000000) node (v20) {}
+	(0.000000,3.000000) node (v21) {}
+	(1.000000,3.000000) node (v22) {}
+	(2.000000,3.000000) node (v23) {}
+	(3.000000,3.000000) node (v24) {}
+	(4.000000,3.000000) node (v25) {}
+	(5.000000,3.000000) node (v26) {}
+	(6.000000,3.000000) node (v27) {}
+	(0.000000,4.000000) node (v28) {}
+	(1.000000,4.000000) node (v29) {}
+	(2.000000,4.000000) node (v30) {}
+	(3.000000,4.000000) node (v31) {}
+	(4.000000,4.000000) node (v32) {}
+	(5.000000,4.000000) node (v33) {}
+	(6.000000,4.000000) node (v34) {}
+	(0.000000,5.000000) node (v35) {}
+	(1.000000,5.000000) node (v36) {}
+	(2.000000,5.000000) node (v37) {}
+	(3.000000,5.000000) node (v38) {}
+	(4.000000,5.000000) node (v39) {}
+	(5.000000,5.000000) node (v40) {}
+	(6.000000,5.000000) node (v41) {}
+	(0.000000,6.000000) node (v42) {}
+	(1.000000,6.000000) node (v43) {}
+	(2.000000,6.000000) node (v44) {}
+	(3.000000,6.000000) node (v45) {}
+	(4.000000,6.000000) node (v46) {}
+	(5.000000,6.000000) node (v47) {}
+	(6.000000,6.000000) node (v48) {};
+
+%plot non-open edges
+\draw
+	(v0)--(v1)
+	(v1)--(v3)
+	(v3)--(v2)
+	(v2)--(v0)
+	(v1)--(v4)
+	(v4)--(v5)
+	(v5)--(v3)
+	(v4)--(v6)
+	(v6)--(v7)
+	(v7)--(v5)
+	(v6)--(v8)
+	(v8)--(v9)
+	(v9)--(v7)
+	(v8)--(v10)
+	(v10)--(v11)
+	(v11)--(v9)
+	(v10)--(v12)
+	(v12)--(v13)
+	(v13)--(v11)
+	(v3)--(v15)
+	(v15)--(v14)
+	(v14)--(v2)
+	(v5)--(v16)
+	(v16)--(v15)
+	(v7)--(v17)
+	(v17)--(v16)
+	(v9)--(v18)
+	(v18)--(v17)
+	(v11)--(v19)
+	(v19)--(v18)
+	(v13)--(v20)
+	(v20)--(v19)
+	(v15)--(v22)
+	(v22)--(v21)
+	(v21)--(v14)
+	(v16)--(v23)
+	(v23)--(v22)
+	(v17)--(v24)
+	(v24)--(v23)
+	(v18)--(v25)
+	(v25)--(v24)
+	(v19)--(v26)
+	(v26)--(v25)
+	(v20)--(v27)
+	(v27)--(v26)
+	(v22)--(v29)
+	(v29)--(v28)
+	(v28)--(v21)
+	(v23)--(v30)
+	(v30)--(v29)
+	(v24)--(v31)
+	(v31)--(v30)
+	(v25)--(v32)
+	(v32)--(v31)
+	(v26)--(v33)
+	(v33)--(v32)
+	(v27)--(v34)
+	(v34)--(v33)
+	(v29)--(v36)
+	(v36)--(v35)
+	(v35)--(v28)
+	(v30)--(v37)
+	(v37)--(v36)
+	(v31)--(v38)
+	(v38)--(v37)
+	(v32)--(v39)
+	(v39)--(v38)
+	(v33)--(v40)
+	(v40)--(v39)
+	(v34)--(v41)
+	(v41)--(v40)
+	(v36)--(v43)
+	(v43)--(v42)
+	(v42)--(v35)
+	(v37)--(v44)
+	(v44)--(v43)
+	(v38)--(v45)
+	(v45)--(v44)
+	(v39)--(v46)
+	(v46)--(v45)
+	(v40)--(v47)
+	(v47)--(v46)
+	(v41)--(v48)
+	(v48)--(v47);
+
+%plot open edges
+\draw[very thick, dashed];
+
+%fill faces
+\fill[color=blue!20, opacity=.5] 
+	(v0.center)--(v1.center)--(v3.center)--(v2.center)--cycle
+	(v1.center)--(v4.center)--(v5.center)--(v3.center)--cycle
+	(v4.center)--(v6.center)--(v7.center)--(v5.center)--cycle
+	(v6.center)--(v8.center)--(v9.center)--(v7.center)--cycle
+	(v8.center)--(v10.center)--(v11.center)--(v9.center)--cycle
+	(v10.center)--(v12.center)--(v13.center)--(v11.center)--cycle
+	(v3.center)--(v2.center)--(v14.center)--(v15.center)--cycle
+	(v5.center)--(v3.center)--(v15.center)--(v16.center)--cycle
+	(v7.center)--(v5.center)--(v16.center)--(v17.center)--cycle
+	(v9.center)--(v7.center)--(v17.center)--(v18.center)--cycle
+	(v11.center)--(v9.center)--(v18.center)--(v19.center)--cycle
+	(v13.center)--(v11.center)--(v19.center)--(v20.center)--cycle
+	(v15.center)--(v14.center)--(v21.center)--(v22.center)--cycle
+	(v16.center)--(v15.center)--(v22.center)--(v23.center)--cycle
+	(v17.center)--(v16.center)--(v23.center)--(v24.center)--cycle
+	(v18.center)--(v17.center)--(v24.center)--(v25.center)--cycle
+	(v19.center)--(v18.center)--(v25.center)--(v26.center)--cycle
+	(v20.center)--(v19.center)--(v26.center)--(v27.center)--cycle
+	(v22.center)--(v21.center)--(v28.center)--(v29.center)--cycle
+	(v23.center)--(v22.center)--(v29.center)--(v30.center)--cycle
+	(v24.center)--(v23.center)--(v30.center)--(v31.center)--cycle
+	(v25.center)--(v24.center)--(v31.center)--(v32.center)--cycle
+	(v26.center)--(v25.center)--(v32.center)--(v33.center)--cycle
+	(v27.center)--(v26.center)--(v33.center)--(v34.center)--cycle
+	(v29.center)--(v28.center)--(v35.center)--(v36.center)--cycle
+	(v30.center)--(v29.center)--(v36.center)--(v37.center)--cycle
+	(v31.center)--(v30.center)--(v37.center)--(v38.center)--cycle
+	(v32.center)--(v31.center)--(v38.center)--(v39.center)--cycle
+	(v33.center)--(v32.center)--(v39.center)--(v40.center)--cycle
+	(v34.center)--(v33.center)--(v40.center)--(v41.center)--cycle
+	(v36.center)--(v35.center)--(v42.center)--(v43.center)--cycle
+	(v37.center)--(v36.center)--(v43.center)--(v44.center)--cycle
+	(v38.center)--(v37.center)--(v44.center)--(v45.center)--cycle
+	(v39.center)--(v38.center)--(v45.center)--(v46.center)--cycle
+	(v40.center)--(v39.center)--(v46.center)--(v47.center)--cycle
+	(v41.center)--(v40.center)--(v47.center)--(v48.center)--cycle;
+
+%plot non-open vertices
+\draw
+	(v0) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v1) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v2) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v3) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v4) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v5) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v6) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v7) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v8) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v9) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v10) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v11) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v12) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v13) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v14) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v15) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v16) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v17) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v18) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v19) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v20) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v21) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v22) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v23) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v24) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v25) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v26) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v27) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v28) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v29) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v30) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v31) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v32) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v33) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v34) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v35) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v36) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v37) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v38) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v39) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v40) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v41) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v42) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v43) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v44) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v45) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v46) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v47) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v48) node[draw, circle, inner sep=2pt, fill=black] {};
+
+%plot open vertices
+\draw;
+
+\end{tikzpicture}
+\hspace{.2cm}
+\begin{tikzpicture}[scale=1.33, every node/.style={scale=0.53}]
+
+%vertex labels
+\draw
+	(0.500000,0.500000) node (v0) {}
+	(1.500000,0.500000) node (v1) {}
+	(2.500000,0.500000) node (v2) {}
+	(3.500000,0.500000) node (v3) {}
+	(4.500000,0.500000) node (v4) {}
+	(5.500000,0.500000) node (v5) {}
+	(0.500000,1.500000) node (v6) {}
+	(1.500000,1.500000) node (v7) {}
+	(2.500000,1.500000) node (v8) {}
+	(3.500000,1.500000) node (v9) {}
+	(4.500000,1.500000) node (v10) {}
+	(5.500000,1.500000) node (v11) {}
+	(0.500000,2.500000) node (v12) {}
+	(1.500000,2.500000) node (v13) {}
+	(2.500000,2.500000) node (v14) {}
+	(3.500000,2.500000) node (v15) {}
+	(4.500000,2.500000) node (v16) {}
+	(5.500000,2.500000) node (v17) {}
+	(0.500000,3.500000) node (v18) {}
+	(1.500000,3.500000) node (v19) {}
+	(2.500000,3.500000) node (v20) {}
+	(3.500000,3.500000) node (v21) {}
+	(4.500000,3.500000) node (v22) {}
+	(5.500000,3.500000) node (v23) {}
+	(0.500000,4.500000) node (v24) {}
+	(1.500000,4.500000) node (v25) {}
+	(2.500000,4.500000) node (v26) {}
+	(3.500000,4.500000) node (v27) {}
+	(4.500000,4.500000) node (v28) {}
+	(5.500000,4.500000) node (v29) {}
+	(0.500000,5.500000) node (v30) {}
+	(1.500000,5.500000) node (v31) {}
+	(2.500000,5.500000) node (v32) {}
+	(3.500000,5.500000) node (v33) {}
+	(4.500000,5.500000) node (v34) {}
+	(5.500000,5.500000) node (v35) {}
+	(0.500000,0.000000) node (v36) {}
+	(0.000000,0.500000) node (v37) {}
+	(1.500000,0.000000) node (v38) {}
+	(2.500000,0.000000) node (v39) {}
+	(3.500000,0.000000) node (v40) {}
+	(4.500000,0.000000) node (v41) {}
+	(5.500000,0.000000) node (v42) {}
+	(6.000000,0.500000) node (v43) {}
+	(0.000000,1.500000) node (v44) {}
+	(6.000000,1.500000) node (v45) {}
+	(0.000000,2.500000) node (v46) {}
+	(6.000000,2.500000) node (v47) {}
+	(0.000000,3.500000) node (v48) {}
+	(6.000000,3.500000) node (v49) {}
+	(0.000000,4.500000) node (v50) {}
+	(6.000000,4.500000) node (v51) {}
+	(0.500000,6.000000) node (v52) {}
+	(0.000000,5.500000) node (v53) {}
+	(1.500000,6.000000) node (v54) {}
+	(2.500000,6.000000) node (v55) {}
+	(3.500000,6.000000) node (v56) {}
+	(4.500000,6.000000) node (v57) {}
+	(6.000000,5.500000) node (v58) {}
+	(5.500000,6.000000) node (v59) {};
+
+%plot non-open edges
+\draw
+	(v0)--(v36)
+	(v0)--(v1)
+	(v0)--(v6)
+	(v0)--(v37)
+	(v1)--(v38)
+	(v1)--(v2)
+	(v1)--(v7)
+	(v2)--(v39)
+	(v2)--(v3)
+	(v2)--(v8)
+	(v3)--(v40)
+	(v3)--(v4)
+	(v3)--(v9)
+	(v4)--(v41)
+	(v4)--(v5)
+	(v4)--(v10)
+	(v5)--(v42)
+	(v5)--(v43)
+	(v5)--(v11)
+	(v6)--(v7)
+	(v6)--(v12)
+	(v6)--(v44)
+	(v7)--(v8)
+	(v7)--(v13)
+	(v8)--(v9)
+	(v8)--(v14)
+	(v9)--(v10)
+	(v9)--(v15)
+	(v10)--(v11)
+	(v10)--(v16)
+	(v11)--(v45)
+	(v11)--(v17)
+	(v12)--(v13)
+	(v12)--(v18)
+	(v12)--(v46)
+	(v13)--(v14)
+	(v13)--(v19)
+	(v14)--(v15)
+	(v14)--(v20)
+	(v15)--(v16)
+	(v15)--(v21)
+	(v16)--(v17)
+	(v16)--(v22)
+	(v17)--(v47)
+	(v17)--(v23)
+	(v18)--(v19)
+	(v18)--(v24)
+	(v18)--(v48)
+	(v19)--(v20)
+	(v19)--(v25)
+	(v20)--(v21)
+	(v20)--(v26)
+	(v21)--(v22)
+	(v21)--(v27)
+	(v22)--(v23)
+	(v22)--(v28)
+	(v23)--(v49)
+	(v23)--(v29)
+	(v24)--(v25)
+	(v24)--(v30)
+	(v24)--(v50)
+	(v25)--(v26)
+	(v25)--(v31)
+	(v26)--(v27)
+	(v26)--(v32)
+	(v27)--(v28)
+	(v27)--(v33)
+	(v28)--(v29)
+	(v28)--(v34)
+	(v29)--(v51)
+	(v29)--(v35)
+	(v30)--(v31)
+	(v30)--(v52)
+	(v30)--(v53)
+	(v31)--(v32)
+	(v31)--(v54)
+	(v32)--(v33)
+	(v32)--(v55)
+	(v33)--(v34)
+	(v33)--(v56)
+	(v34)--(v35)
+	(v34)--(v57)
+	(v35)--(v58)
+	(v35)--(v59);
+
+%plot open edges
+\draw[very thick, dashed]
+	(v36)--(v37)
+	(v36)--(v38)
+	(v37)--(v44)
+	(v38)--(v39)
+	(v39)--(v40)
+	(v40)--(v41)
+	(v41)--(v42)
+	(v42)--(v43)
+	(v43)--(v45)
+	(v44)--(v46)
+	(v45)--(v47)
+	(v46)--(v48)
+	(v47)--(v49)
+	(v48)--(v50)
+	(v49)--(v51)
+	(v50)--(v53)
+	(v51)--(v58)
+	(v52)--(v53)
+	(v52)--(v54)
+	(v54)--(v55)
+	(v55)--(v56)
+	(v56)--(v57)
+	(v57)--(v59)
+	(v58)--(v59);
+
+%fill faces
+\fill[color=red!20, opacity=.5] 
+	(v0.center)--(v36.center)--(v37.center)--cycle
+	(v0.center)--(v36.center)--(v38.center)--(v1.center)--cycle
+	(v0.center)--(v6.center)--(v44.center)--(v37.center)--cycle
+	(v0.center)--(v1.center)--(v7.center)--(v6.center)--cycle
+	(v1.center)--(v38.center)--(v39.center)--(v2.center)--cycle
+	(v1.center)--(v2.center)--(v8.center)--(v7.center)--cycle
+	(v2.center)--(v39.center)--(v40.center)--(v3.center)--cycle
+	(v2.center)--(v3.center)--(v9.center)--(v8.center)--cycle
+	(v3.center)--(v40.center)--(v41.center)--(v4.center)--cycle
+	(v3.center)--(v4.center)--(v10.center)--(v9.center)--cycle
+	(v4.center)--(v41.center)--(v42.center)--(v5.center)--cycle
+	(v4.center)--(v5.center)--(v11.center)--(v10.center)--cycle
+	(v5.center)--(v42.center)--(v43.center)--cycle
+	(v5.center)--(v43.center)--(v45.center)--(v11.center)--cycle
+	(v6.center)--(v12.center)--(v46.center)--(v44.center)--cycle
+	(v6.center)--(v7.center)--(v13.center)--(v12.center)--cycle
+	(v7.center)--(v8.center)--(v14.center)--(v13.center)--cycle
+	(v8.center)--(v9.center)--(v15.center)--(v14.center)--cycle
+	(v9.center)--(v10.center)--(v16.center)--(v15.center)--cycle
+	(v10.center)--(v11.center)--(v17.center)--(v16.center)--cycle
+	(v11.center)--(v45.center)--(v47.center)--(v17.center)--cycle
+	(v12.center)--(v18.center)--(v48.center)--(v46.center)--cycle
+	(v12.center)--(v13.center)--(v19.center)--(v18.center)--cycle
+	(v13.center)--(v14.center)--(v20.center)--(v19.center)--cycle
+	(v14.center)--(v15.center)--(v21.center)--(v20.center)--cycle
+	(v15.center)--(v16.center)--(v22.center)--(v21.center)--cycle
+	(v16.center)--(v17.center)--(v23.center)--(v22.center)--cycle
+	(v17.center)--(v47.center)--(v49.center)--(v23.center)--cycle
+	(v18.center)--(v24.center)--(v50.center)--(v48.center)--cycle
+	(v18.center)--(v19.center)--(v25.center)--(v24.center)--cycle
+	(v19.center)--(v20.center)--(v26.center)--(v25.center)--cycle
+	(v20.center)--(v21.center)--(v27.center)--(v26.center)--cycle
+	(v21.center)--(v22.center)--(v28.center)--(v27.center)--cycle
+	(v22.center)--(v23.center)--(v29.center)--(v28.center)--cycle
+	(v23.center)--(v49.center)--(v51.center)--(v29.center)--cycle
+	(v24.center)--(v30.center)--(v53.center)--(v50.center)--cycle
+	(v24.center)--(v25.center)--(v31.center)--(v30.center)--cycle
+	(v25.center)--(v26.center)--(v32.center)--(v31.center)--cycle
+	(v26.center)--(v27.center)--(v33.center)--(v32.center)--cycle
+	(v27.center)--(v28.center)--(v34.center)--(v33.center)--cycle
+	(v28.center)--(v29.center)--(v35.center)--(v34.center)--cycle
+	(v29.center)--(v51.center)--(v58.center)--(v35.center)--cycle
+	(v30.center)--(v52.center)--(v53.center)--cycle
+	(v30.center)--(v31.center)--(v54.center)--(v52.center)--cycle
+	(v31.center)--(v32.center)--(v55.center)--(v54.center)--cycle
+	(v32.center)--(v33.center)--(v56.center)--(v55.center)--cycle
+	(v33.center)--(v34.center)--(v57.center)--(v56.center)--cycle
+	(v34.center)--(v35.center)--(v59.center)--(v57.center)--cycle
+	(v35.center)--(v58.center)--(v59.center)--cycle;
+
+%plot non-open vertices
+\draw
+	(v0) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v1) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v2) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v3) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v4) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v5) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v6) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v7) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v8) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v9) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v10) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v11) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v12) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v13) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v14) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v15) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v16) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v17) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v18) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v19) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v20) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v21) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v22) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v23) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v24) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v25) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v26) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v27) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v28) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v29) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v30) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v31) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v32) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v33) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v34) node[draw, circle, inner sep=2pt, fill=black] {}
+	(v35) node[draw, circle, inner sep=2pt, fill=black] {};
+
+%plot open vertices
+\draw
+	(v36) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v37) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v38) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v39) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v40) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v41) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v42) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v43) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v44) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v45) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v46) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v47) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v48) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v49) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v50) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v51) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v52) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v53) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v54) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v55) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v56) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v57) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v58) node[draw, circle, inner sep=2pt, fill=white] {}
+	(v59) node[draw, circle, inner sep=2pt, fill=white] {};
+
+\end{tikzpicture}
+\caption{The tiling and its dual tiling}
+\end{figure}
+\vspace{.2cm}
+
+\newpage
+\begin{table}[h]
+\centering
+\begin{tabular}{c c}
+\hline
+Number of physical qubits & $n = 84$ \\
+\hline
+Number of logical qubits & $k = 0$\\
+\hline
+Overhead & $n/k = inf$\\
+\hline
+\end{tabular}
+\caption{Error-correction overhead}
+\end{table}
+\vspace{.3cm}
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c c}
+\hline
+weight & number of $Z$-measurements\\
+\hline
+4 & 36\\
+\hline
+\hline
+weight & number of $X$-measurements\\
+\hline
+2 & 4\\
+3 & 20\\
+4 & 25\\
+\hline
+\end{tabular}
+\caption{Measurements weight distribution}
+\end{table}
+\vspace{.3cm}
+
+
+
+\vspace{2cm}
+Total simulation time: $< 1$ second.
+\end{document}
