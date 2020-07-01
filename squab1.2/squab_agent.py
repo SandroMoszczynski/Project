@@ -3,6 +3,7 @@ from squab_read import squab_read
 import __future__
 import numpy as np
 
+
 # -*- coding: utf-8 -*-
 """
 Copyright 2018 Alexey Melnikov and Katja Ried.
