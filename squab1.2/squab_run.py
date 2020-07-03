@@ -10,6 +10,8 @@ import __future__
 import numpy as np
 import os# for current directory
 import sys # include paths to subfolders for agents and environments
+import squab_agent # import the basic PS agent
+import squab_call #import the calling function
 sys.path.insert(0, 'agents')
 sys.path.insert(0, 'environments')
 #create results folder if it doesn't exist already
@@ -18,10 +20,10 @@ if not os.path.exists('results'):
 #import functions for initialising agents and environments, controlling their interaction etc
 
 def CreateAgent(agent_name, agent_config = None):
-    	"""Given a name (string) and an optional config argument, this returns an agent.
-    Agents must have a single method, deliberate_and_learn, which takes as input an observation 
-    (list of integers) and a reward (float) and returns an action (single integer index)."""
-	import squab_agent # import the basic PS agent
+	"""Given a name (string) and an optional config argument, this returns an agent.
+	Agents must have a single method, deliberate_and_learn, which takes as input an observation 
+	(list of integers) and a reward (float) and returns an action (single integer index)."""
+	
 	agent = squab_agent.BasicPSAgent(agent_config[0], agent_config[1], agent_config[2], agent_config[3], agent_config[4], agent_config[5], agent_config[6])
 	return agent
 
@@ -89,11 +91,11 @@ for i_param_scan in range(n_param_scan):
     average_learning_curve = np.zeros(max_num_trials)  #this will record the rewards earned at each trial, averaged over all agents
     for i_agent in range(num_agents):	#train one agent at a time, and iterate over several agents	
         env_config = 2, 1, max_num_trials  #need to pass the number of agents for a multi-agent environment
-        env = CreateEnvironment(env_name, env_config)
+        env = squab_call(x_size,y_size,joints)
         num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = env.num_actions, env.num_percepts_list, 0, ps_eta, 'softmax', 1, 0
         agent_config = [num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections]
         agent = CreateAgent(agent_name, agent_config)	
-        interaction = Interaction(agent, env)
+        interaction = squab_read()
         learning_curve = interaction.single_learning_life(max_num_trials, max_steps_per_trial) #This function executes a 'learning life' between the agent and the environment
         average_learning_curve += learning_curve/num_agents
     average_param_performance[i_param_scan] = average_learning_curve[-1]  #The performance for a given value of the parameter is taken to be the average reward at the last trial.
