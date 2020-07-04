@@ -19,7 +19,7 @@ New Generation Computing, Volume 33, Issue 1, pp 69-114 (2015) doi:10.1007/s0035
 
 
 
-class BasicPSAgent(object):
+class squab_agent(object):
 	"""Projective Simulation agent with two-layered network. Features: forgetting, glow, reflection, optional softmax rule. """
 	
 	def __init__(self, num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections):

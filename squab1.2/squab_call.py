@@ -1,9 +1,8 @@
 from subprocess import Popen, PIPE, STDOUT
 
 #need to maybe make a way to link the compute time with the read time
-#probably solved this with the while loop in read, will not wait between iterations 
-#and delete inputs, note this seems to not work with ipython untill it exits the 
-#application, will have to see how this runs later
+#probably solved this with the while loop in read, will now wait between iterations 
+#and delete inputs, now works in non commandline applications
 
 
 def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):

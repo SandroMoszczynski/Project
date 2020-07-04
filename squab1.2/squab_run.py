@@ -10,7 +10,7 @@ import __future__
 import numpy as np
 import os# for current directory
 import sys # include paths to subfolders for agents and environments
-from squab_agent import squab_agent # import the basic PS agent
+from squab_agent import * # import the basic PS agent
 from squab_read import squab_read #import the reader
 from squab_call import squab_call #import the calling function
 sys.path.insert(0, 'agents')
@@ -25,7 +25,7 @@ def CreateAgent(agent_name, agent_config = None):
 	Agents must have a single method, deliberate_and_learn, which takes as input an observation 
 	(list of integers) and a reward (float) and returns an action (single integer index)."""
 	
-	agent = squab_agent.BasicPSAgent(agent_config[0], agent_config[1], agent_config[2], agent_config[3], agent_config[4], agent_config[5], agent_config[6])
+	agent.squab_agent(agent_config[0], agent_config[1], agent_config[2], agent_config[3], agent_config[4], agent_config[5], agent_config[6])
 	return agent
 
 class Interaction(object):
@@ -92,7 +92,7 @@ for i_param_scan in range(n_param_scan):
     average_learning_curve = np.zeros(max_num_trials)  #this will record the rewards earned at each trial, averaged over all agents
     for i_agent in range(num_agents):	#train one agent at a time, and iterate over several agents	
         env_config = 2, 1, max_num_trials  #need to pass the number of agents for a multi-agent environment
-        env = squab_call(x_size,y_size,joints)
+        env = squab_call(joints,x_size,y_size)
         num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = env.num_actions, env.num_percepts_list, 0, ps_eta, 'softmax', 1, 0
         agent_config = [num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections]
         agent = CreateAgent(agent_name, agent_config)	
