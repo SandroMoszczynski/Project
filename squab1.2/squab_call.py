@@ -6,28 +6,21 @@ from subprocess import Popen, PIPE, STDOUT
 #application, will have to see how this runs later
 
 
-def squab_call( joints=4,x_size = 5,y_size = 3):
+def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):
     squab = ["./squab"]
-    run_squab = Popen(squab,stdin=PIPE , stdout=PIPE, stderr = PIPE)
+    run_squab = Popen(squab,stdin=PIPE, stdout=PIPE)
     tiling = "Tiling " + str(joints) + " " + str(x_size) + " " + str(y_size)
     tiling_as_string = str.encode(tiling)
     run_squab.stdin.write(tiling_as_string)
-    print("Tiling Complete")
-    run_squab.stdin.write(b"Report 0 0.3 0.01 1000")
-    print("Generate Report")
+    #print("Tiling Complete")
+    report = "Report " + str(param_a) + " " + str(param_b) + " " + str(param_c)+ " " + str(duration)
+    report_as_string = str.encode(report)
+    run_squab.stdin.write(report_as_string)
+    #print("Generate Report")
     run_squab.stdin.write(b"Quit")
-    print("Quitting")
-    return ("Code inputted")
+    #print("Quitting")
+    run_squab.stdin.close()
+    run_squab.stdout.close()
 
-
-def squab_call_test():   
-    squab = ["./squab"]
-    run_squab_test = Popen(squab,stdin=PIPE , stdout=PIPE, stderr = PIPE)
-    run_squab_test.stdin.write(b"Tiling 4 5 3")
-    print("Tiling Complete")
-    run_squab_test.stdin.write(b"Report 0 0.3 0.01 1000")
-    print("Generate Report")
-    run_squab_test.stdin.write(b"Quit")
-    print("Quitting")
 
 

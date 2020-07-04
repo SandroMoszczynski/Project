@@ -1,5 +1,3 @@
-from squab_call import squab_call
-from squab_read import squab_read
 import __future__
 import numpy as np
 
