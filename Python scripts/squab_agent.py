@@ -1,5 +1,3 @@
-from squab_call import squab_call
-from squab_read import squab_read
 import __future__
 import numpy as np
 
@@ -21,7 +19,7 @@ New Generation Computing, Volume 33, Issue 1, pp 69-114 (2015) doi:10.1007/s0035
 
 
 
-class BasicPSAgent(object):
+class squab_agent(object):
 	"""Projective Simulation agent with two-layered network. Features: forgetting, glow, reflection, optional softmax rule. """
 	
 	def __init__(self, num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections):
@@ -75,7 +73,7 @@ class BasicPSAgent(object):
 			self.e_matrix[self.last_percept_action] = 0
 		percept = self.percept_preprocess(observation) 
 		action = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
-		for i_counter in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
+		for _ in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
 			if self.e_matrix[action, percept]:
 				break
 			action = np.random.choice(self.num_actions, p=self.probability_distr(percept))		
