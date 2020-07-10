@@ -73,7 +73,7 @@ class squab_agent(object):
 			self.e_matrix[self.last_percept_action] = 0
 		percept = self.percept_preprocess(observation) 
 		action = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
-		for i_counter in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
+		for _ in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
 			if self.e_matrix[action, percept]:
 				break
 			action = np.random.choice(self.num_actions, p=self.probability_distr(percept))		

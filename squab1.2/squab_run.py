@@ -10,9 +10,6 @@ import __future__
 import numpy as np
 import os# for current directory
 import sys # include paths to subfolders for agents and environments
-from squab_agent import squab_agent # import the basic PS agent
-from squab_read import squab_read #import the reader
-from squab_call import squab_call #import the calling function
 from squab_env import Interaction,Create_Agent,Create_Env
 sys.path.insert(0, 'agents')
 sys.path.insert(0, 'environments')

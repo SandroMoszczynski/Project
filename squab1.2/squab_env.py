@@ -1,14 +1,18 @@
-from squab_call import *
-from squab_read import *
+from squab_call import squab_call
+from squab_read import squab_read
+from squab_agent import squab_agent
 import numpy as np
+"""for personal edification later; creates and enviroment object, 
+then interaction takes this enviroment class with members move and resset and
+iterates each move, then resets when reward is reached"""
 
 class TaskEnvironment(object):
-    	"""Invasion Game: in this game, the agent is faced with an invader trying to come in
-    through one of num_actions doors. The invader (environment) first holds up a sign (percept)
-    hinting which door it will attack. The agent must then choose an action (which door to guard).
-    If action == percept, then the agent defends successfully and is therefore rewarded."""
-	
-	def __init__(self):
+    "creates an enviroment that interacts with squab, parameters need to be updated"
+
+    def __init__(self):
+        """create a bunch of parameters here, see squab call for param a,b,c
+        current dimensions may need to be adjusted to work properly, need to follow through 
+        to see if this gets updated in move or through the agent, probably the later"""
         self.initial_x_size = 3
         self.initial_y_size = 3
         self.x_size = 3
@@ -18,31 +22,35 @@ class TaskEnvironment(object):
         self.param_b = 0.3
         self.param_c = 0.01
         self.duration = 10000
-		self.num_actions = 2
+        self.num_actions = 2
         self.desired_outcome = 0.01
-		self.num_percepts_list = np.array([self.num_actions])
-		self.env = squab_call(x_size, y_size) #encodes where the attacker will go next, which is also the percept
+        self.num_percepts_list = np.array([self.num_actions])
         self.squab_outcome = squab_read()
-		
-	def reset(self):
+        self.current_dimensions = np.array([self.x_size,self.y_size])
+
+    def reset(self):
+        """resets x and y size to initial values"""
         self.x_size = self.initial_x_size
         self.y_size = self.initial_y_size
-		return self.current_state
+        self.current_dimensions = np.array([self.x_size,self.y_size])
+        return self.current_dimensions
 		
-	def move(self, action):
-        start = squab_call(x_size = self.x_size,y_size = self.y_size)
-		if squab_outcome[3] <= self.desired_outcome :
-			reward = 1
-		else:
-			reward = 0
+    def move(self, action):
+        """calls the squab program and then reads it"""
+        squab_call(x_size = self.x_size,y_size = self.y_size)
+        if self.squab_outcome[3] <= self.desired_outcome : #not sure of this, will have to check values
+            reward = 1
+        else:
+            reward = 0
         step_finished = True
-        self.x_size = self.initial_x_size+np.random.randint(self.num_actions)]
-        self.y_size = self.initial_y_size+np.random.randint(self.num_actions)]
-		self.current_state = squab_call(x_size =self.x_size ,y_size=self.y_size) 
-		return self.current_state, reward, step_finished
+        self.x_size = self.initial_x_size + np.random.randint(self.num_actions) # super not sure of this also
+        self.y_size = self.initial_y_size + np.random.randint(self.num_actions)
+        squab_call(x_size =self.x_size ,y_size=self.y_size) 
+        self.current_dimensions = np.array([self.x_size,self.y_size])
+        return self.current_dimensions, reward, step_finished
 
 def Create_Env():
-    env.TaskEnvironment()
+    env = TaskEnvironment()
     return env
 
 def Create_Agent(agent_config = None):
@@ -51,8 +59,8 @@ def Create_Agent(agent_config = None):
     Agents must have a single method, deliberate_and_learn, which takes as input an observation 
     (list of integers) and a reward (float) and returns an action (single integer index).
     """
-	agent.squab_agent(agent_config[0], agent_config[1], agent_config[2], agent_config[3], agent_config[4], agent_config[5], agent_config[6])
-	return agent
+    agent = squab_agent(agent_config[0], agent_config[1], agent_config[2], agent_config[3], agent_config[4], agent_config[5], agent_config[6])
+    return agent
 
 class Interaction(object):
 	
