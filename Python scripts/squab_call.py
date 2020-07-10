@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE, STDOUT
 
 
 def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):
-    squab = ["./squab"]
+    squab = ["../squab1.2/./squab"]
     run_squab = Popen(squab,stdin=PIPE, stdout=PIPE)
     tiling = "Tiling " + str(joints) + " " + str(x_size) + " " + str(y_size)
     tiling_as_string = str.encode(tiling)
