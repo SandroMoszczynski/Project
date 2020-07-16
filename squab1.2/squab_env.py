@@ -24,11 +24,12 @@ class TaskEnvironment(object):
         self.duration = 10000
         self.num_actions = 2
         self.desired_outcome = 0.01
-        self.num_percepts_list = np.array([self.num_actions])
+        self.num_percepts_list = np.array([4,4]) # figure out why this needs to be 4x4 and if i need to change it
         self.current_dimensions = np.array([self.x_size,self.y_size])
 
     def reset(self):
         """resets x and y size to initial values"""
+        print("resetting")
         self.x_size = self.initial_x_size
         self.y_size = self.initial_y_size
         self.current_dimensions = np.array([self.x_size,self.y_size])
@@ -38,6 +39,8 @@ class TaskEnvironment(object):
         """calls the squab program and then reads it"""
         squab_call(x_size = self.x_size,y_size = self.y_size)
         squab_outcome = squab_read()
+        print("working on")
+        print(squab_outcome[0])
         if squab_outcome[3] <= self.desired_outcome : #not sure of this, will have to check values
             reward = 1
         else:

@@ -1,7 +1,6 @@
 import __future__
 import numpy as np
 
-
 # -*- coding: utf-8 -*-
 """
 Copyright 2018 Alexey Melnikov and Katja Ried.
@@ -16,9 +15,6 @@ and
 Julian Mautner, Adi Makmal, Daniel Manzano, Markus Tiersch & Hans J. Briegel
 New Generation Computing, Volume 33, Issue 1, pp 69-114 (2015) doi:10.1007/s00354-015-0102-0
 """
-
-
-
 class squab_agent(object):
 	"""Projective Simulation agent with two-layered network. Features: forgetting, glow, reflection, optional softmax rule. """
 	
@@ -86,7 +82,7 @@ class squab_agent(object):
 	def probability_distr(self, percept):
 		"""Given a percept index, this method returns a probability distribution over actions
         (an array of length num_actions normalized to unit sum) computed according to policy_type."""        
-		if self.policy_type == 'standard':
+		if self.policy_type == 'standard': #can probably remove this later
 			h_vector = self.h_matrix[:, percept]
 			probability_distr = h_vector / np.sum(h_vector)
 		elif self.policy_type == 'softmax':

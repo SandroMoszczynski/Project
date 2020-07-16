@@ -17,7 +17,7 @@ def squab_read():
     os.remove(filename[0])    # deletes used file
     while not extrafiles:
         extrafiles=glob.glob("reports/bench_*.pdf") #pdf creation is the slowest part
-        time.sleep(0.1)
+        time.sleep(0.5)
     if extrafiles != 0: 
         extrafiles += glob.glob("reports/**.tex")
         extrafiles += glob.glob("results/**.txt")

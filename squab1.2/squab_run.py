@@ -14,8 +14,8 @@ from squab_env import Interaction,Create_Agent,Create_Env
 sys.path.insert(0, 'agents')
 sys.path.insert(0, 'environments')
 #create results folder if it doesn't exist already
-if not os.path.exists('results'): 
-	os.makedirs('results')
+if not os.path.exists('sim_results'): 
+	os.makedirs('sim_results')
 #import functions for initialising agents and environments, controlling their interaction etc
 
 """This is the master file, which calls other functions to create agents and environments and
@@ -34,8 +34,6 @@ num_agents = 100
 # If multiple_agents==True, this is the number of agents interacting in a single environment
 max_num_trials = 100   #Each agents get several attempts at completing a task, e.g. finding the goal in a maze or reaching the top in the mountain car problem
 max_steps_per_trial = 1000  #This parameter serves mostly to prevent agents getting stuck, since it terminates an attempt and resets the environment.
-
-
 
 n_param_scan = 11  #Loop over different values of a certain parameter to test which one works best
 average_param_performance = np.zeros(n_param_scan)
@@ -56,9 +54,9 @@ for i_param_scan in range(n_param_scan):
 
 # Saving files
 current_file_directory = os.path.dirname(os.path.abspath(__file__))
-np.savetxt(current_file_directory+'/results'+'/h_matrix', agent.h_matrix, fmt='%.2f', delimiter=',')
-np.savetxt(current_file_directory+'/results'+'/g_matrix', agent.h_matrix, fmt='%.3f', delimiter=',')
-np.savetxt(current_file_directory+'/results'+'/learning_curve', average_learning_curve, fmt='%.3f', delimiter=',')
+np.savetxt(current_file_directory+'/sim_results'+'/h_matrix', agent.h_matrix, fmt='%.2f', delimiter=',')
+np.savetxt(current_file_directory+'/sim_results'+'/g_matrix', agent.h_matrix, fmt='%.3f', delimiter=',')
+np.savetxt(current_file_directory+'/sim_results'+'/learning_curve', average_learning_curve, fmt='%.3f', delimiter=',')
 
 
 #only change the values in agent config in here, rest is handled by squab_env
