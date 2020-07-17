@@ -1,7 +1,10 @@
-from squab_call import squab_call
-from squab_read import squab_read
 from squab_agent import squab_agent
+from subprocess import Popen, PIPE, STDOUT
 import numpy as np
+import threading,time
+import queue
+import glob
+import os
 """for personal edification later; creates and enviroment object, 
 then interaction takes this enviroment class with members move and resset and
 iterates each move, then resets when reward is reached"""
@@ -34,11 +37,44 @@ class TaskEnvironment(object):
         self.y_size = self.initial_y_size
         self.current_dimensions = np.array([self.x_size,self.y_size])
         return self.current_dimensions
+
+    def squab_call(self,joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):
+        squab = ["./squab"]
+        run_squab = Popen(squab,stdin=PIPE, stdout=PIPE)
+        tiling = "Tiling " + str(joints) + " " + str(x_size) + " " + str(y_size)
+        tiling_as_string = str.encode(tiling)
+        run_squab.stdin.write(tiling_as_string)
+        #print("Tiling Complete")
+        report = "Report " + str(param_a) + " " + str(param_b) + " " + str(param_c)+ " " + str(duration)
+        report_as_string = str.encode(report)
+        run_squab.stdin.write(report_as_string)
+        #print("Generate Report")
+        run_squab.stdin.write(b"Quit")
+        #print("Quitting")
+        run_squab.stdin.close()
+        run_squab.stdout.close()
+
+    def squab_read(self):
+        print("reading")
+        results = []
+        filename = []    
+        #extrafiles = []
+        while not filename: #important as some runs take a while to load, 
+            filename = glob.glob("results/runtimes**.txt") # searches for the file with run time inside it
+            time.sleep(0.1)
+        if filename != 0:
+            result = np.genfromtxt(filename[0], delimiter = " ", dtype=[('f0', '<i8'), ('f1', '<i8'), ('f2', '<f8')]) 
+            results = [filename[0],result['f0'].item(0),result['f1'].item(0),result['f2'].item(0)]
+        os.remove(filename[0])    # deletes used file
+        return results, q.task_done()
 		
     def move(self, action):
         """calls the squab program and then reads it"""
-        squab_call(x_size = self.x_size,y_size = self.y_size)
-        squab_outcome = squab_read()
+        q = queue.Queue()
+        self.squab_call(x_size = self.x_size,y_size = self.y_size)
+        thread = threading.Thread(target=self.squab_call)
+        thread.start()
+        squab_outcome = q.get()
         print("working on")
         print(squab_outcome[0])
         if squab_outcome[3] <= self.desired_outcome : #not sure of this, will have to check values
@@ -48,9 +84,13 @@ class TaskEnvironment(object):
         step_finished = True
         self.x_size = self.initial_x_size + np.random.randint(self.num_actions) # super not sure of this also
         self.y_size = self.initial_y_size + np.random.randint(self.num_actions)
-        squab_call(x_size =self.x_size ,y_size=self.y_size) 
+        self.squab_call(x_size =self.x_size ,y_size=self.y_size) 
         self.current_dimensions = np.array([self.x_size,self.y_size])
         return self.current_dimensions, reward, step_finished
+
+
+    if __name__ =='__move__':
+        self.move(action)
 
 def Create_Env():
     env = TaskEnvironment()
