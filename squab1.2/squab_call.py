@@ -20,6 +20,7 @@ def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, par
     #print("Quitting")
     run_squab.stdin.close()
     run_squab.stdout.close()
+    run_squab.wait()
 
 
 
