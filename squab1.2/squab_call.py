@@ -5,7 +5,7 @@ from subprocess import Popen, PIPE, STDOUT
 #and delete inputs, now works in non commandline applications
 
 
-def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):
+def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000,percept = None):
     squab = ["./squab"]
     run_squab = Popen(squab,stdin=PIPE, stdout=PIPE)
     tiling = "Tiling " + str(joints) + " " + str(x_size) + " " + str(y_size)
@@ -21,6 +21,7 @@ def squab_call(joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, par
     run_squab.stdin.close()
     run_squab.stdout.close()
     run_squab.wait()
+
 
 
 

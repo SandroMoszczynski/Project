@@ -58,6 +58,7 @@ class squab_agent(object):
 		return percept
 		
 	def deliberate_and_learn(self, observation, reward):
+    		#this is where it either moves or loads from mememory, so must load the saved percept
 		"""Given an observation and a reward (from the previous interaction), this method
         updates the h_matrix, chooses the next action and records that choice in the g_matrix and last_percept_action.
         Arguments: 

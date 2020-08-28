@@ -1,4 +1,4 @@
-from squab_call import squab_call
+from subprocess import Popen, PIPE, STDOUT
 from squab_read import squab_read
 from squab_agent import squab_agent
 import numpy as np
@@ -25,32 +25,40 @@ class TaskEnvironment(object):
         self.num_actions = 2
         self.desired_outcome = 0.03
         self.num_percepts_list = np.array([4,4]) # figure out why this needs to be 4x4 and if i need to change it
-        self.current_dimensions = np.array([self.x_size,self.y_size])
+        self.current_dimensions = "Default"
 
     def reset(self):
         """resets x and y size to initial values"""
         print("resetting")
-        self.x_size = self.initial_x_size
-        self.y_size = self.initial_y_size
-        self.current_dimensions = np.array([self.x_size,self.y_size])
-        return self.current_dimensions
+        self.current_dimensions = "Default"
+        return self.current_dimensions #needs to be the current state of the code
 		
     def move(self, action):
         """calls the squab program and then reads it"""
-        squab_call(x_size = self.x_size,y_size = self.y_size)
-        squab_outcome = squab_read()
-        #print("working on")
-        #print(squab_outcome[0])#debug options
-        #print(squab_outcome[3])#debug options
-        if squab_outcome[3] <= self.desired_outcome : #not sure of this, will have to check values
+        squab = ["./squab"]
+        run_squab = Popen(squab,stdin=PIPE, stdout=PIPE)
+        command_load = "Load " + str(self.current_dimensions)
+        run_squab.stdin.write(command_load)
+        if action[0] == 0:
+            run_squab.stdin.write("Draw")
+        else:
+            run_squab.stdin.write("DrawDual")
+        command_run = "AddFace 3 " + str(action[1]) + " " + str(action[2]) + " " +str(action[3])
+        run_squab.stdin.write(command_run)
+        save_name = str(self.current_dimensions) + str(action[1]) + str(action[2]) +str(action[3])
+        command_save = "Save " + str(save_name) 
+        run_squab.stdin.write(command_save)
+        run_squab.stdin.write("Report 0 0.3 0.01 10000")
+        run_squab.stdin.close()
+        run_squab.stdout.close()
+        run_squab.wait()
+        squab_outcome = squab_read(save_name)
+        if squab_outcome[0,1] <= self.desired_outcome :
             reward = 1
         else:
             reward = 0
         step_finished = True
-        self.x_size = self.initial_x_size + np.random.randint(self.num_actions) # super not sure of this also
-        self.y_size = self.initial_y_size + np.random.randint(self.num_actions)
-        squab_call(x_size =self.x_size ,y_size=self.y_size) 
-        self.current_dimensions = np.array([self.x_size,self.y_size])
+        self.current_dimensions = save_name
         return self.current_dimensions, reward, step_finished
 
 def Create_Env():
