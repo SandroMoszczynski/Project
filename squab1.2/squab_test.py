@@ -1,9 +1,9 @@
-#from squab_call import squab_call
+from squab_call import squab_call
 from squab_read import squab_read
 
-
-x = squab_read("Default")
-print(x[0,1])
+squab_call([0,0,1,2])
+#x = squab_read("Default")
+#print(x[0,1])
 
 
 # action  = d,v,p1,p1

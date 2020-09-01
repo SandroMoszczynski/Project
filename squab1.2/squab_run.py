@@ -29,23 +29,23 @@ Note that the parameters specified below must match the required input formats o
 # Only specific classes of environment support this. 
 
 # performance evaluation
-num_agents = 100
+num_agents = 1
 #When multiple_agents==False, the learning process is repeated with several independent agents in order to gather statistics.
 # If multiple_agents==True, this is the number of agents interacting in a single environment
 max_num_trials = 100   #Each agents get several attempts at completing a task, e.g. finding the goal in a maze or reaching the top in the mountain car problem
-max_steps_per_trial = 1000  #This parameter serves mostly to prevent agents getting stuck, since it terminates an attempt and resets the environment.
+max_steps_per_trial = 100  #This parameter serves mostly to prevent agents getting stuck, since it terminates an attempt and resets the environment.
 
-n_param_scan = 11  #Loop over different values of a certain parameter to test which one works best
+n_param_scan = 1 #Loop over different values of a certain parameter to test which one works best
 average_param_performance = np.zeros(n_param_scan)
 for i_param_scan in range(n_param_scan):
-    ps_eta = i_param_scan * 0.1 #set the ps_eta parameter to different values
+    ps_eta = i_param_scan * 0.5 #set the ps_eta parameter to different values
 
     average_learning_curve = np.zeros(max_num_trials)  #this will record the rewards earned at each trial, averaged over all agents
     for i_agent in range(num_agents):	#train one agent at a time, and iterate over several agents	
         env_config = 2, 1, max_num_trials  #need to pass the number of agents for a multi-agent environment
         env = Create_Env()
-        num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = env.num_actions, env.num_percepts_list, 0, ps_eta, 'softmax', 1, 0
-        agent_config = [num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections]
+        gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = 0, ps_eta, 'softmax', 1, 0
+        agent_config = [gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections]
         agent = Create_Agent(agent_config)	
         interaction = Interaction(agent,env)
         learning_curve = interaction.single_learning_life(max_num_trials, max_steps_per_trial) #This function executes a 'learning life' between the agent and the environment

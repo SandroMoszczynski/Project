@@ -4,7 +4,7 @@ import os
 import time
 
 def squab_read(save_name):# add it needs to read the name and upload it
-    print("reading")
+    #print("reading")
     #results = []
     filename = []    
     extrafiles = []

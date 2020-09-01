@@ -13,93 +13,141 @@
 
 %vertex labels
 \draw
-	(0.000000,0.000000) node (v0) {}
-	(1.000000,0.000000) node (v1) {}
-	(0.000000,1.000000) node (v2) {}
-	(1.000000,1.000000) node (v3) {}
-	(2.000000,0.000000) node (v4) {}
-	(2.000000,1.000000) node (v5) {}
-	(3.000000,0.000000) node (v6) {}
-	(3.000000,1.000000) node (v7) {}
-	(0.000000,2.000000) node (v8) {}
-	(1.000000,2.000000) node (v9) {}
-	(2.000000,2.000000) node (v10) {}
-	(3.000000,2.000000) node (v11) {}
-	(0.000000,3.000000) node (v12) {}
-	(1.000000,3.000000) node (v13) {}
-	(2.000000,3.000000) node (v14) {}
-	(3.000000,3.000000) node (v15) {};
+	(0.500000,0.500000) node (v0) {}
+	(1.500000,0.500000) node (v1) {}
+	(2.500000,0.500000) node (v2) {}
+	(0.500000,1.500000) node (v3) {}
+	(2.500000,1.500000) node (v4) {}
+	(0.500000,2.500000) node (v5) {}
+	(1.500000,2.500000) node (v6) {}
+	(2.500000,2.500000) node (v7) {}
+	(0.500000,0.000000) node (v8) {}
+	(0.000000,0.500000) node (v9) {}
+	(1.500000,0.000000) node (v10) {}
+	(1.500000,1.000000) node (v11) {}
+	(2.500000,0.000000) node (v12) {}
+	(3.000000,0.500000) node (v13) {}
+	(1.000000,1.500000) node (v14) {}
+	(0.000000,1.500000) node (v15) {}
+	(2.000000,1.500000) node (v16) {}
+	(1.500000,2.000000) node (v17) {}
+	(3.000000,1.500000) node (v18) {}
+	(0.500000,3.000000) node (v19) {}
+	(0.000000,2.500000) node (v20) {}
+	(1.500000,3.000000) node (v21) {}
+	(3.000000,2.500000) node (v22) {}
+	(2.500000,3.000000) node (v23) {};
 
 %plot non-open edges
 \draw
-	(v0)--(v1) node [midway] {e0}
-	(v1)--(v3) node [midway] {e1}
-	(v3)--(v2) node [midway] {e2}
-	(v2)--(v0) node [midway] {e3}
-	(v1)--(v4) node [midway] {e4}
-	(v4)--(v5) node [midway] {e5}
-	(v5)--(v3) node [midway] {e6}
-	(v4)--(v6) node [midway] {e7}
-	(v6)--(v7) node [midway] {e8}
-	(v7)--(v5) node [midway] {e9}
-	(v3)--(v9) node [midway] {e10}
-	(v9)--(v8) node [midway] {e11}
-	(v8)--(v2) node [midway] {e12}
-	(v5)--(v10) node [midway] {e13}
-	(v10)--(v9) node [midway] {e14}
-	(v7)--(v11) node [midway] {e15}
-	(v11)--(v10) node [midway] {e16}
-	(v9)--(v13) node [midway] {e17}
-	(v13)--(v12) node [midway] {e18}
-	(v12)--(v8) node [midway] {e19}
-	(v10)--(v14) node [midway] {e20}
-	(v14)--(v13) node [midway] {e21}
-	(v11)--(v15) node [midway] {e22}
-	(v15)--(v14) node [midway] {e23};
+	(v0)--(v8) node [midway] {e0}
+	(v0)--(v1) node [midway] {e1}
+	(v0)--(v3) node [midway] {e2}
+	(v0)--(v9) node [midway] {e3}
+	(v1)--(v10) node [midway] {e4}
+	(v1)--(v2) node [midway] {e5}
+	(v1)--(v11) node [midway] {e6}
+	(v2)--(v12) node [midway] {e7}
+	(v2)--(v13) node [midway] {e8}
+	(v2)--(v4) node [midway] {e9}
+	(v3)--(v14) node [midway] {e10}
+	(v3)--(v5) node [midway] {e11}
+	(v3)--(v15) node [midway] {e12}
+	(v4)--(v16) node [midway] {e13}
+	(v6)--(v17) node [midway] {e14}
+	(v4)--(v18) node [midway] {e15}
+	(v4)--(v7) node [midway] {e16}
+	(v5)--(v6) node [midway] {e17}
+	(v5)--(v19) node [midway] {e18}
+	(v5)--(v20) node [midway] {e19}
+	(v6)--(v7) node [midway] {e20}
+	(v6)--(v21) node [midway] {e21}
+	(v7)--(v22) node [midway] {e22}
+	(v7)--(v23) node [midway] {e23};
 
 %plot open edges
-\draw[very thick, dashed];
+\draw[very thick, dashed]
+	(v8)--(v9) node [midway] {e24}
+	(v8)--(v10) node [midway] {e25}
+	(v9)--(v15) node [midway] {e26}
+	(v11)--(v14) node [midway] {e27}
+	(v10)--(v12) node [midway] {e28}
+	(v11)--(v16) node [midway] {e29}
+	(v12)--(v13) node [midway] {e30}
+	(v13)--(v18) node [midway] {e31}
+	(v15)--(v20) node [midway] {e32}
+	(v14)--(v17) node [midway] {e33}
+	(v16)--(v17) node [midway] {e34}
+	(v18)--(v22) node [midway] {e35}
+	(v19)--(v20) node [midway] {e36}
+	(v19)--(v21) node [midway] {e37}
+	(v21)--(v23) node [midway] {e38}
+	(v22)--(v23) node [midway] {e39};
 
 %fill faces
-\fill[color=blue!20, opacity=.5] 
-	(v0.center)--(v1.center)--(v3.center)--(v2.center)--cycle
-	(v1.center)--(v4.center)--(v5.center)--(v3.center)--cycle
-	(v4.center)--(v6.center)--(v7.center)--(v5.center)--cycle
-	(v3.center)--(v2.center)--(v8.center)--(v9.center)--cycle
-	(v7.center)--(v5.center)--(v10.center)--(v11.center)--cycle
-	(v9.center)--(v8.center)--(v12.center)--(v13.center)--cycle
-	(v10.center)--(v9.center)--(v13.center)--(v14.center)--cycle
-	(v11.center)--(v10.center)--(v14.center)--(v15.center)--cycle;
+\fill[color=red!20, opacity=.5] 
+	(v0.center)--(v8.center)--(v9.center)--cycle
+	(v0.center)--(v8.center)--(v10.center)--(v1.center)--cycle
+	(v0.center)--(v3.center)--(v15.center)--(v9.center)--cycle
+	(v0.center)--(v1.center)--(v11.center)--(v14.center)--(v3.center)--cycle
+	(v1.center)--(v10.center)--(v12.center)--(v2.center)--cycle
+	(v1.center)--(v2.center)--(v4.center)--(v16.center)--(v11.center)--cycle
+	(v2.center)--(v12.center)--(v13.center)--cycle
+	(v2.center)--(v13.center)--(v18.center)--(v4.center)--cycle
+	(v3.center)--(v5.center)--(v20.center)--(v15.center)--cycle
+	(v3.center)--(v14.center)--(v17.center)--(v6.center)--(v5.center)--cycle
+	(v4.center)--(v16.center)--(v17.center)--(v6.center)--(v7.center)--cycle
+	(v4.center)--(v18.center)--(v22.center)--(v7.center)--cycle
+	(v5.center)--(v19.center)--(v20.center)--cycle
+	(v5.center)--(v6.center)--(v21.center)--(v19.center)--cycle
+	(v6.center)--(v7.center)--(v23.center)--(v21.center)--cycle
+	(v7.center)--(v22.center)--(v23.center)--cycle;
 
 %plot faces indices
 \draw
-   (0.500000,0.500000) node[color=blue!80] {f0}
-   (1.500000,0.500000) node[color=blue!80] {f1}
-   (2.500000,0.500000) node[color=blue!80] {f2}
-   (0.500000,1.500000) node[color=blue!80] {f3}
-   (2.500000,1.500000) node[color=blue!80] {f4}
-   (0.500000,2.500000) node[color=blue!80] {f5}
-   (1.500000,2.500000) node[color=blue!80] {f6}
-   (2.500000,2.500000) node[color=blue!80] {f7};
+   (0.333333,0.333333) node[color=blue!80] {f0}
+   (1.000000,0.250000) node[color=blue!80] {f1}
+   (0.250000,1.000000) node[color=blue!80] {f2}
+   (1.000000,1.000000) node[color=blue!80] {f3}
+   (2.000000,0.250000) node[color=blue!80] {f4}
+   (2.000000,1.000000) node[color=blue!80] {f5}
+   (2.666667,0.333333) node[color=blue!80] {f6}
+   (2.750000,1.000000) node[color=blue!80] {f7}
+   (0.250000,2.000000) node[color=blue!80] {f8}
+   (1.000000,2.000000) node[color=blue!80] {f9}
+   (2.000000,2.000000) node[color=blue!80] {f10}
+   (2.750000,2.000000) node[color=blue!80] {f11}
+   (0.333333,2.666667) node[color=blue!80] {f12}
+   (1.000000,2.750000) node[color=blue!80] {f13}
+   (2.000000,2.750000) node[color=blue!80] {f14}
+   (2.666667,2.666667) node[color=blue!80] {f15};
 
 %vertex indices
 \draw
-	(0.000000,0.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v0] () {}
-	(1.000000,0.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v1] () {}
-	(0.000000,1.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v2] () {}
-	(1.000000,1.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v3] () {}
-	(2.000000,0.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v4] () {}
-	(2.000000,1.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v5] () {}
-	(3.000000,0.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v6] () {}
-	(3.000000,1.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v7] () {}
-	(0.000000,2.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v8] () {}
-	(1.000000,2.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v9] () {}
-	(2.000000,2.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v10] () {}
-	(3.000000,2.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v11] () {}
-	(0.000000,3.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v12] () {}
-	(1.000000,3.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v13] () {}
-	(2.000000,3.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v14] () {}
-	(3.000000,3.000000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v15] () {};
+	(0.500000,0.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v0] () {}
+	(1.500000,0.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v1] () {}
+	(2.500000,0.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v2] () {}
+	(0.500000,1.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v3] () {}
+	(2.500000,1.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v4] () {}
+	(0.500000,2.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v5] () {}
+	(1.500000,2.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v6] () {}
+	(2.500000,2.500000) node[draw, circle, inner sep=2pt, fill=black, label = above right:v7] () {}
+	(0.500000,0.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v8] () {}
+	(0.000000,0.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v9] () {}
+	(1.500000,0.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v10] () {}
+	(1.500000,1.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v11] () {}
+	(2.500000,0.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v12] () {}
+	(3.000000,0.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v13] () {}
+	(1.000000,1.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v14] () {}
+	(0.000000,1.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v15] () {}
+	(2.000000,1.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v16] () {}
+	(1.500000,2.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v17] () {}
+	(3.000000,1.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v18] () {}
+	(0.500000,3.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v19] () {}
+	(0.000000,2.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v20] () {}
+	(1.500000,3.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v21] () {}
+	(3.000000,2.500000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v22] () {}
+	(2.500000,3.000000) node[draw, circle, inner sep=2pt, fill=white, label = above right:v23] () {};
 
 \end{tikzpicture}
 \endpgfgraphicnamed
