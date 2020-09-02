@@ -70,25 +70,27 @@ class squab_agent(object):
 		return self.possible_moves
 		
 	def deliberate_and_learn(self, observation, reward):
-    		#this is where it either moves or loads from mememory, so must load the saved percept
+			#this is where it either moves or loads from mememory, so must load the saved percept
+			#currently only allows normal lattice formation, not dual, well get there, need to make it want
+			#to only use the possible moves once for each type
 		"""Given an observation and a reward (from the previous interaction), this method
-        updates the h_matrix, chooses the next action and records that choice in the g_matrix and last_percept_action.
-        Arguments: 
-            - observation: list of integers, as specified for percept_preprocess, 
-            - reward: float
-        Output: action, represented by a single integer index."""        
+		updates the h_matrix, chooses the next action and records that choice in the g_matrix and last_percept_action.
+		Arguments: 
+			- observation: list of integers, as specified for percept_preprocess, 
+			- reward: float
+		Output: action, represented by a single integer index."""        
 		self.h_matrix =  self.h_matrix - self.gamma_damping * (self.h_matrix - 1.) + self.g_matrix * reward # learning and forgetting
 		if (self.num_reflections > 0) and (self.last_percept_action != None) and (reward <= 0): # reflection update
 			self.e_matrix[self.last_percept_action] = 0
 		percept = self.percept_preprocess(observation) 
 		rnd_choice = np.random.choice(len(self.possible_moves), p=self.probability_distr(percept)) #deliberate once
-		action = [np.random.choice(2),self.possible_moves[rnd_choice][0],self.possible_moves[rnd_choice][1],self.possible_moves[rnd_choice][2]]
+		action = [np.random.choice(1),self.possible_moves[rnd_choice][0],self.possible_moves[rnd_choice][1],self.possible_moves[rnd_choice][2]]
 		np.delete(self.possible_moves,rnd_choice,0)
 		for _ in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
-			if self.e_matrix[action, percept]:
+			if self.e_matrix[action, percept].any():
 				break
 			rnd_choice = np.random.choice(len(self.possible_moves), p=self.probability_distr(percept)) #deliberate once
-			action = [np.random.choice(2),self.possible_moves[rnd_choice][0],self.possible_moves[rnd_choice][1],self.possible_moves[rnd_choice][2]]
+			action = [np.random.choice(1),self.possible_moves[rnd_choice][0],self.possible_moves[rnd_choice][1],self.possible_moves[rnd_choice][2]]
 			np.delete(self.possible_moves,rnd_choice,0)		
 		self.g_matrix = (1 - self.eta_glow_damping) * self.g_matrix
 		self.g_matrix[action, percept] = 1 #record latest decision in g_matrix

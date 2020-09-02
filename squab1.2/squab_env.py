@@ -15,11 +15,13 @@ class TaskEnvironment(object):
         to see if this gets updated in move or through the agent, probably the later"""
         self.desired_outcome = 0.03
         self.current_dimensions = "Default"
+        self.no_moves = 0
 
     def reset(self):
         """resets x and y size to initial values"""
         #print("resetting")
         self.current_dimensions = "Default"
+        self.no_moves = 0
         return self.current_dimensions #needs to be the current state of the code
 		
     def move(self, action):
@@ -46,13 +48,17 @@ class TaskEnvironment(object):
         run_squab.stdout.close()
         run_squab.wait()
         squab_outcome = squab_read(self.current_dimensions)
-        #print("read")
+        print(squab_outcome[0,1],self.desired_outcome)
         if squab_outcome[0,1] <= self.desired_outcome :
             reward = 1
+            print("Target Reached")
+            step_finished = True
         else:
             reward = 0
-        step_finished = True
+        step_finished = False
         self.current_dimensions = save_name
+        self.no_moves += 1
+        print("move number",self.no_moves)
         return self.current_dimensions, reward, step_finished
 
 def Create_Env():
@@ -89,10 +95,12 @@ class Interaction(object):
             reward_trial = 0 #additive counter of the total rewards earned during the current trial
             discretized_observation = self.env.reset()
             self.agent.reset_actions()
+            print("Trial no" , i_trial)
             for t in range(max_steps_per_trial):
                 discretized_observation, reward, done = self.single_interaction_step(discretized_observation, reward)
                 reward_trial += reward
                 if done:
+                    print("breaking")
                     break
             learning_curve[i_trial] = float(reward_trial)/(t+1)
         return learning_curve
