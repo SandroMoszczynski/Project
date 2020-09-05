@@ -18,7 +18,7 @@ New Generation Computing, Volume 33, Issue 1, pp 69-114 (2015) doi:10.1007/s0035
 class squab_agent(object):
 	"""Projective Simulation agent with two-layered network. Features: forgetting, glow, reflection, optional softmax rule. """
 	
-	def __init__(self, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections):
+	def __init__(self, num_actions, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections):
 		"""Initialize the basic PS agent. Arguments: 
             - num_actions: integer >=1, 
             - num_percepts_list: list of integers >=1, not nested, representing the cardinality of each category/feature of percept space.
@@ -30,18 +30,18 @@ class squab_agent(object):
             """
 		
 		
-		self.num_percepts_list = np.array([1,1]) # figure out why this needs to be 4x4 and if i need to change it
+		self.num_percepts_list = np.array([4,4]) # figure out why this needs to be 4x4 and if i need to change it
 		self.gamma_damping = gamma_damping
 		self.eta_glow_damping = eta_glow_damping
 		self.policy_type = policy_type
 		self.beta_softmax = beta_softmax
 		self.num_reflections = num_reflections
-		self.possible_moves = np.array([[0,2,3],[0,1,3],[1,3,5],[1,4,5],[4,5,7],[4,6,7],[5,10,11],[5,7,11],[2,8,9],
-		[2,3,9],[8,12,13],[8,9,13],[9,13,14],[9,10,14],[10,14,15],[10,11,15]])
+		self.possible_moves = num_actions
 		self.num_actions = len(self.possible_moves)
 		
-		self.num_percepts = int(np.prod(np.array(self.num_percepts_list).astype(np.float64))) # total number of possible percepts
-		
+		#self.num_percepts = int(np.prod(np.array(self.num_percepts_list).astype(np.float64))) # total number of possible percepts
+		self.num_percepts = self.possible_moves.size
+
 		self.h_matrix = np.ones((self.num_actions, self.num_percepts), dtype=np.float64) #Note: the first index specifies the action, the second index specifies the percept.
 		self.g_matrix = np.zeros((self.num_actions, self.num_percepts), dtype=np.float64) #glow matrix, for processing delayed rewards
 		
@@ -56,18 +56,15 @@ class squab_agent(object):
 			respecting the cardinality specified by num_percepts_list: observation[i]<num_percepts_list[i] (strictly)
 			Output: single integer."""
 		percept = 0
-		if len(observation) == 6:
+		#print("observation",observation)
+		if len(observation) == 1:
 			percept = 0
 		else:
-			for which_feature in range(len(observation)-7):
-				print(observation[which_feature+7])
-				percept += int(observation[which_feature+7] * np.prod(self.num_percepts_list[:which_feature]))
+			percept = int(len(observation)-2/3)
+			#for which_feature in range(len(observation)-7):
+				# print("observation",observation[which_feature+7])
+				# percept += int(observation[which_feature+7] * np.prod(self.num_percepts_list[:which_feature]))
 		return percept
-
-	def reset_actions(self):
-		self.possible_moves = np.array([[0,2,3],[0,1,3],[1,3,5],[1,4,5],[4,5,7],[4,6,7],[5,10,11],[5,7,11],[2,8,9],
-		[2,3,9],[8,12,13],[8,9,13],[9,13,14],[9,10,14],[10,14,15],[10,11,15]])
-		return self.possible_moves
 		
 	def deliberate_and_learn(self, observation, reward):
 			#this is where it either moves or loads from mememory, so must load the saved percept
@@ -83,15 +80,14 @@ class squab_agent(object):
 		if (self.num_reflections > 0) and (self.last_percept_action != None) and (reward <= 0): # reflection update
 			self.e_matrix[self.last_percept_action] = 0
 		percept = self.percept_preprocess(observation) 
-		rnd_choice = np.random.choice(len(self.possible_moves), p=self.probability_distr(percept)) #deliberate once
-		action = [np.random.choice(1),self.possible_moves[rnd_choice][0],self.possible_moves[rnd_choice][1],self.possible_moves[rnd_choice][2]]
-		np.delete(self.possible_moves,rnd_choice,0)
+		rnd_choice = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
+		action = rnd_choice
 		for _ in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
 			if self.e_matrix[action, percept].any():
 				break
-			rnd_choice = np.random.choice(len(self.possible_moves), p=self.probability_distr(percept)) #deliberate once
-			action = [np.random.choice(1),self.possible_moves[rnd_choice][0],self.possible_moves[rnd_choice][1],self.possible_moves[rnd_choice][2]]
-			np.delete(self.possible_moves,rnd_choice,0)		
+			rnd_choice = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
+			action = rnd_choice
+			np.delete(self.num_actions,rnd_choice,0)		
 		self.g_matrix = (1 - self.eta_glow_damping) * self.g_matrix
 		self.g_matrix[action, percept] = 1 #record latest decision in g_matrix
 		if self.num_reflections > 0:
@@ -105,6 +101,9 @@ class squab_agent(object):
 			h_vector = self.h_matrix[:, percept]
 			probability_distr = h_vector / np.sum(h_vector)
 		elif self.policy_type == 'softmax':
+			#print("beta softmax",self.beta_softmax)
+			#print("h matrix",self.h_matrix)
+			#print("percept",percept)
 			h_vector = self.beta_softmax * self.h_matrix[:, percept]
 			h_vector_mod = h_vector - np.max(h_vector)
 			probability_distr = np.exp(h_vector_mod) / np.sum(np.exp(h_vector_mod))

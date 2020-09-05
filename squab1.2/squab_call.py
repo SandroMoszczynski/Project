@@ -1,13 +1,14 @@
 from subprocess import Popen, PIPE, STDOUT
 from squab_read import squab_read
 import time
+import numpy as np
 
 #need to maybe make a way to link the compute time with the read time
 #probably solved this with the while loop in read, will now wait between iterations 
 #and delete inputs, now works in non commandline applications
 
 
-def squab_call(action, joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):
+def squab_call(move, joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 0.3, param_c = 0.01, duration = 10000):
     # squab = ["./squab"]
     # run_squab = Popen(squab,stdin=PIPE)
     # #, stdout=PIPE)
@@ -26,28 +27,68 @@ def squab_call(action, joints=4, x_size = 5, y_size = 3, param_a = 0, param_b = 
     # run_squab.stdin.close()
     # #run_squab.stdout.close()
     # run_squab.wait()
-    current_dimensions = "Default"
+    desired_outcome = 0.03
+    current_dimensions = "D"
+    no_moves = 0
+    print(move)
+    possible_moves = np.array([[0,0,2,1],[0,0,1,3],[0,1,3,5],[0,1,4,5],[0,4,5,7],[0,4,6,7],[0,5,10,11],[0,5,7,11],
+    [0,2,8,9],[0,2,3,9],[0,8,12,13],[0,8,9,13],[0,9,13,14],[0,9,10,14],[0,10,14,15],[0,10,11,15],[1,0,2,3],[1,0,1,3],
+    [1,1,3,5],[1,1,4,5],[1,4,5,7],[1,4,6,7],[1,5,10,11],[1,5,7,11],[1,2,8,9],[1,2,3,9],[1,8,12,13],[1,8,9,13],
+    [1,9,13,14],[1,9,10,14],[1,10,14,15],[1,10,11,15]])
+    num_actions = possible_moves.size
+    #"""calls the squab program and then reads it"""
+    print("action",move)
+    action = possible_moves[move]
+    np.delete(possible_moves,move,0)	
     squab = ["./squab"]
-    run_squab = Popen(squab, stdin=PIPE, stdout=PIPE)
+    run_squab = Popen(squab, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     command_load = ("Load " + str(current_dimensions) + " ")
-    command_load_as_string = str.encode(command_load)
-    run_squab.stdin.write(command_load_as_string)
     if action[0] == 0:
-        run_squab.stdin.write(b"Draw")
+        command_face = "Draw "
     else:
-        run_squab.stdin.write(b"DrawDual")
-    command_run = ("AddFace 3 " + str(action[1]) + " " + str(action[2]) + " " +str(action[3]) + " ")
-    command_run_as_string = str.encode(command_run)
-    run_squab.stdin.write(command_run_as_string)
-    save_name = (str(current_dimensions) + str(action[1]) + str(action[2]) +str(action[3]))
+        command_face = "DrawDual "
+    command_add = ("AddFace 3 " + str(action[1]) + " " + str(action[2]) + " " +str(action[3]) + " ")
+    if no_moves == 20:
+        save_name = str("B") + str(move)
+    else:    
+        save_name = str(current_dimensions) + str(move)
     command_save = ("Save " + str(save_name) + " ")
-    command_save_as_string = str.encode(command_save)
-    run_squab.stdin.write(command_save_as_string)
-    run_squab.stdin.write(b"Report 0 0.3 0.01 1000")
-    run_squab.stdin.write(b"Quit")
-    run_squab.stdin.close()
-    run_squab.stdout.close()
-    run_squab.wait()
-    squab_outcome = squab_read(current_dimensions)
-    print(squab_outcome[0,1])
+    command_report = "Report 0 0.3 0.01 10000 "
+    command_quit = "Quit"
+    test_input = str(command_load) + str(command_face) + str(command_add) + str(command_save) +str(command_report) + str(command_quit)
+    test_input_as_string = str.encode(test_input)
+    run_squab.stdin.write(test_input_as_string)
+    std_out,std_err = run_squab.communicate()
+    if run_squab.returncode != 0:
+        run_squab.stdin.close()
+        run_squab.stdout.close()
+        run_squab.stderr.close()
+        run_squab.wait()
+        print("bad code")
+    else:
+        run_squab.stdin.close()
+        run_squab.stdout.close()
+        run_squab.stderr.close()
+        run_squab.wait()
+        #current_dimensions = save_name
+        print(save_name)
+        print("were here")
+        squab_outcome = squab_read(current_dimensions)
+        current_dimensions = save_name
+        print(squab_outcome[0,1],desired_outcome)
+        if squab_outcome[0,1] <= desired_outcome :
+            reward = 1
+            print("Target Reached")
+            step_finished = True
+        else:
+            reward = 0
+        step_finished = False
 
+    no_moves += 1
+    if no_moves == 37:
+        print("max moves reached")
+        step_finished = True
+    print("move number",no_moves)
+    
+
+#not the codes fault :P getting a core dump
