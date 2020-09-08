@@ -28,9 +28,6 @@ class squab_agent(object):
             - beta_softmax: float >=0, probabilities are proportional to exp(beta*h_value). If policy_type != 'softmax', then this is irrelevant.
             - num_reflections: integer >=0 setting how many times the agent reflects, ie potentially goes back to the percept. Setting this to zero effectively deactivates reflection.
             """
-		
-		
-		self.num_percepts_list = np.array([4,4]) # figure out why this needs to be 4x4 and if i need to change it
 		self.gamma_damping = gamma_damping
 		self.eta_glow_damping = eta_glow_damping
 		self.policy_type = policy_type

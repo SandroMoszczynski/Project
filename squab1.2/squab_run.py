@@ -36,7 +36,7 @@ multiple_agents = False
 #When multiple_agents==False, the learning process is repeated with several independent agents in order to gather statistics.
 # If multiple_agents==True, this is the number of agents interacting in a single environment
 max_num_trials = 10  #Each agents get several attempts at completing a task, e.g. finding the goal in a maze or reaching the top in the mountain car problem
-max_steps_per_trial = 37  #This parameter serves mostly to prevent agents getting stuck, since it terminates an attempt and resets the environment.
+max_steps_per_trial = 25  #This parameter serves mostly to prevent agents getting stuck, since it terminates an attempt and resets the environment.
 
 
 if not multiple_agents:
@@ -47,7 +47,7 @@ if not multiple_agents:
 
         average_learning_curve = np.zeros(max_num_trials)  #this will record the rewards earned at each trial, averaged over all agents
         for i_agent in range(num_agents):	#train one agent at a time, and iterate over several agents	
-            print("agent no",i_agent)
+            print("agent no",i_agent+1)
             env_config = 2, 1, max_num_trials  #need to pass the number of agents for a multi-agent environment
             env = Create_Env()
             num_action, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = env.possible_moves, 0, ps_eta, 'softmax', 1, 1

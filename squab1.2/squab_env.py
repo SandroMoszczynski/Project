@@ -13,13 +13,12 @@ class TaskEnvironment(object):
         """create a bunch of parameters here, see squab call for param a,b,c
         current dimensions may need to be adjusted to work properly, need to follow through 
         to see if this gets updated in move or through the agent, probably the later"""
-        self.desired_outcome = 0.4
+        self.desired_outcome = 0.45
         self.current_dimensions = "D"
         self.no_moves = 0
-        self.possible_moves = np.array([[0,0,2,3],[0,0,1,3],[0,1,3,5],[0,1,4,5],[0,4,5,7],[0,4,6,7],[0,5,10,11],[0,5,7,11],
-		[0,2,8,9],[0,2,3,9],[0,8,12,13],[0,8,9,13],[0,9,13,14],[0,9,10,14],[0,10,14,15],[0,10,11,15],[1,0,2,3],[1,0,1,3],
-		[1,1,3,5],[1,1,4,5],[1,4,5,7],[1,4,6,7],[1,5,10,11],[1,5,7,11],[1,2,8,9],[1,2,3,9],[1,8,12,13],[1,8,9,13],
-		[1,9,13,14],[1,9,10,14],[1,10,14,15],[1,10,11,15]])
+        self.possible_moves = np.array([[0,0,2,3],[0,2,0,1],[0,1,3,5],[0,3,1,5],[0,4,5,7],[0,5,4,6],[0,5,10,11],[0,10,5,7],
+        [0,2,8,9],[0,8,2,3],[0,8,12,13],[0,12,8,9],[0,9,13,14],[0,14,15,11],[1,0,2,3],[1,2,0,1],[1,1,3,5],[1,3,1,5],
+        [1,4,5,7],[1,5,4,6],[1,5,10,11],[1,10,5,7],[1,2,8,9],[1,8,2,3],[1,8,12,13],[1,12,8,9],[1,9,13,14],[1,14,15,11]])
         self.num_actions = self.possible_moves.size
 
     def reset(self):
@@ -29,10 +28,9 @@ class TaskEnvironment(object):
         return self.current_dimensions #needs to be the current state of the code
 
     def reset_actions(self):
-        self.possible_moves = np.array([[0,0,2,3],[0,0,1,3],[0,1,3,5],[0,1,4,5],[0,4,5,7],[0,4,6,7],[0,5,10,11],[0,5,7,11],
-        [0,2,8,9],[0,2,3,9],[0,8,12,13],[0,8,9,13],[0,9,13,14],[0,9,10,14],[0,10,14,15],[0,10,11,15],[1,0,2,3],[1,0,1,3],
-        [1,1,3,5],[1,1,4,5],[1,4,5,7],[1,4,6,7],[1,5,10,11],[1,5,7,11],[1,2,8,9],[1,2,3,9],[1,8,12,13],[1,8,9,13],
-        [1,9,13,14],[1,9,10,14],[1,10,14,15],[1,10,11,15]])
+        self.possible_moves = np.array([[0,0,2,3],[0,2,0,1],[0,1,3,5],[0,3,1,5],[0,4,5,7],[0,5,4,6],[0,5,10,11],[0,10,5,7],
+        [0,2,8,9],[0,8,2,3],[0,8,12,13],[0,12,8,9],[0,9,13,14],[0,14,15,11],[1,0,2,3],[1,2,0,1],[1,1,3,5],[1,3,1,5],
+        [1,4,5,7],[1,5,4,6],[1,5,10,11],[1,10,5,7],[1,2,8,9],[1,8,2,3],[1,8,12,13],[1,12,8,9],[1,9,13,14],[1,14,15,11]])
         return self.possible_moves
 		
     def move(self, move, agent_no = None):
@@ -74,6 +72,7 @@ class TaskEnvironment(object):
             run_squab.wait()
             squab_outcome = squab_read(self.current_dimensions)
             self.current_dimensions = save_name
+            print("current dim", self.current_dimensions)
             print(squab_outcome[0,1],self.desired_outcome)
             if squab_outcome[0,1] <= self.desired_outcome :
                 reward = 1
