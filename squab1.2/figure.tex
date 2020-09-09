@@ -56,7 +56,10 @@
 	(v14)--(v13) node [midway] {e21}
 	(v11)--(v15) node [midway] {e22}
 	(v15)--(v14) node [midway] {e23}
-	(v2)--(v1) node [midway] {e24};
+	(v13)--(v8) node [midway] {e24}
+	(v7)--(v4) node [midway] {e25}
+	(v1)--(v2) node [midway] {e26}
+	(v11)--(v14) node [midway] {e27};
 
 %plot open edges
 \draw[very thick, dashed];
@@ -71,7 +74,10 @@
 	(v9.center)--(v8.center)--(v12.center)--(v13.center)--cycle
 	(v10.center)--(v9.center)--(v13.center)--(v14.center)--cycle
 	(v11.center)--(v10.center)--(v14.center)--(v15.center)--cycle
-	(v2.center)--(v0.center)--(v1.center)--cycle;
+	(v12.center)--(v8.center)--(v13.center)--cycle
+	(v4.center)--(v6.center)--(v7.center)--cycle
+	(v2.center)--(v0.center)--(v1.center)--cycle
+	(v15.center)--(v14.center)--(v11.center)--cycle;
 
 %plot faces indices
 \draw
@@ -83,7 +89,10 @@
    (0.500000,2.500000) node[color=blue!80] {f5}
    (1.500000,2.500000) node[color=blue!80] {f6}
    (2.500000,2.500000) node[color=blue!80] {f7}
-   (0.333333,0.333333) node[color=blue!80] {f8};
+   (0.333333,2.666667) node[color=blue!80] {f8}
+   (2.666667,0.333333) node[color=blue!80] {f9}
+   (0.333333,0.333333) node[color=blue!80] {f10}
+   (2.666667,2.666667) node[color=blue!80] {f11};
 
 %vertex indices
 \draw

@@ -50,7 +50,7 @@ if not multiple_agents:
             print("agent no",i_agent+1)
             env_config = 2, 1, max_num_trials  #need to pass the number of agents for a multi-agent environment
             env = Create_Env()
-            num_action, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = env.possible_moves, 0, ps_eta, 'softmax', 1, 1
+            num_action, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections = env.possible_moves, 0, ps_eta, 'softmax', 1, 0
             agent_config = [num_action, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections]
             agent = Create_Agent(agent_config)	
             interaction = Interaction(agent,env)
