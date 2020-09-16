@@ -1,7 +1,6 @@
 import __future__
 import numpy as np
 
-
 # -*- coding: utf-8 -*-
 """
 Copyright 2018 Alexey Melnikov and Katja Ried.
@@ -16,13 +15,10 @@ and
 Julian Mautner, Adi Makmal, Daniel Manzano, Markus Tiersch & Hans J. Briegel
 New Generation Computing, Volume 33, Issue 1, pp 69-114 (2015) doi:10.1007/s00354-015-0102-0
 """
-
-
-
 class squab_agent(object):
 	"""Projective Simulation agent with two-layered network. Features: forgetting, glow, reflection, optional softmax rule. """
 	
-	def __init__(self, num_actions, num_percepts_list, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections):
+	def __init__(self, num_actions, gamma_damping, eta_glow_damping, policy_type, beta_softmax, num_reflections):
 		"""Initialize the basic PS agent. Arguments: 
             - num_actions: integer >=1, 
             - num_percepts_list: list of integers >=1, not nested, representing the cardinality of each category/feature of percept space.
@@ -32,17 +28,17 @@ class squab_agent(object):
             - beta_softmax: float >=0, probabilities are proportional to exp(beta*h_value). If policy_type != 'softmax', then this is irrelevant.
             - num_reflections: integer >=0 setting how many times the agent reflects, ie potentially goes back to the percept. Setting this to zero effectively deactivates reflection.
             """
-		
-		self.num_actions = num_actions
-		self.num_percepts_list = num_percepts_list
 		self.gamma_damping = gamma_damping
 		self.eta_glow_damping = eta_glow_damping
 		self.policy_type = policy_type
 		self.beta_softmax = beta_softmax
 		self.num_reflections = num_reflections
+		self.possible_moves = num_actions
+		self.num_actions = len(self.possible_moves)
 		
-		self.num_percepts = int(np.prod(np.array(self.num_percepts_list).astype(np.float64))) # total number of possible percepts
-		
+		#self.num_percepts = int(np.prod(np.array(self.num_percepts_list).astype(np.float64))) # total number of possible percepts
+		self.num_percepts = self.possible_moves.size
+
 		self.h_matrix = np.ones((self.num_actions, self.num_percepts), dtype=np.float64) #Note: the first index specifies the action, the second index specifies the percept.
 		self.g_matrix = np.zeros((self.num_actions, self.num_percepts), dtype=np.float64) #glow matrix, for processing delayed rewards
 		
@@ -53,30 +49,42 @@ class squab_agent(object):
 			
 	def percept_preprocess(self, observation): # preparing for creating a percept
 		"""Takes a multi-feature percept and reduces it to a single integer index.
-        Input: list of integers >=0, of the same length as self.num_percept_list; 
-            respecting the cardinality specified by num_percepts_list: observation[i]<num_percepts_list[i] (strictly)
-            Output: single integer."""
+		Input: list of integers >=0, of the same length as self.num_percept_list; 
+			respecting the cardinality specified by num_percepts_list: observation[i]<num_percepts_list[i] (strictly)
+			Output: single integer."""
 		percept = 0
-		for which_feature in range(len(observation)):
-			percept += int(observation[which_feature] * np.prod(self.num_percepts_list[:which_feature]))
+		#print("observation",observation)
+		if len(observation) == 1:
+			percept = 0
+		else:
+			percept = int(len(observation)-2/3)
+			#for which_feature in range(len(observation)-7):
+				# print("observation",observation[which_feature+7])
+				# percept += int(observation[which_feature+7] * np.prod(self.num_percepts_list[:which_feature]))
 		return percept
 		
 	def deliberate_and_learn(self, observation, reward):
+			#this is where it either moves or loads from mememory, so must load the saved percept
+			#currently only allows normal lattice formation, not dual, well get there, need to make it want
+			#to only use the possible moves once for each type
 		"""Given an observation and a reward (from the previous interaction), this method
-        updates the h_matrix, chooses the next action and records that choice in the g_matrix and last_percept_action.
-        Arguments: 
-            - observation: list of integers, as specified for percept_preprocess, 
-            - reward: float
-        Output: action, represented by a single integer index."""        
+		updates the h_matrix, chooses the next action and records that choice in the g_matrix and last_percept_action.
+		Arguments: 
+			- observation: list of integers, as specified for percept_preprocess, 
+			- reward: float
+		Output: action, represented by a single integer index."""        
 		self.h_matrix =  self.h_matrix - self.gamma_damping * (self.h_matrix - 1.) + self.g_matrix * reward # learning and forgetting
 		if (self.num_reflections > 0) and (self.last_percept_action != None) and (reward <= 0): # reflection update
 			self.e_matrix[self.last_percept_action] = 0
 		percept = self.percept_preprocess(observation) 
-		action = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
+		rnd_choice = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
+		action = rnd_choice
 		for _ in range(self.num_reflections):  #if num_reflection >=1, repeat deliberation if indicated
-			if self.e_matrix[action, percept]:
+			if self.e_matrix[action, percept].any():
 				break
-			action = np.random.choice(self.num_actions, p=self.probability_distr(percept))		
+			rnd_choice = np.random.choice(self.num_actions, p=self.probability_distr(percept)) #deliberate once
+			action = rnd_choice
+			np.delete(self.num_actions,rnd_choice,0)		
 		self.g_matrix = (1 - self.eta_glow_damping) * self.g_matrix
 		self.g_matrix[action, percept] = 1 #record latest decision in g_matrix
 		if self.num_reflections > 0:
@@ -86,10 +94,13 @@ class squab_agent(object):
 	def probability_distr(self, percept):
 		"""Given a percept index, this method returns a probability distribution over actions
         (an array of length num_actions normalized to unit sum) computed according to policy_type."""        
-		if self.policy_type == 'standard':
+		if self.policy_type == 'standard': #can probably remove this later
 			h_vector = self.h_matrix[:, percept]
 			probability_distr = h_vector / np.sum(h_vector)
 		elif self.policy_type == 'softmax':
+			#print("beta softmax",self.beta_softmax)
+			#print("h matrix",self.h_matrix)
+			#print("percept",percept)
 			h_vector = self.beta_softmax * self.h_matrix[:, percept]
 			h_vector_mod = h_vector - np.max(h_vector)
 			probability_distr = np.exp(h_vector_mod) / np.sum(np.exp(h_vector_mod))
